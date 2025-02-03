@@ -1,20 +1,24 @@
 package com.example.mybatis.controller;
 
-
-import com.example.mybatis.dto.JoinDto;
-import com.example.mybatis.dao.MembersDao;
+import com.example.mybatis.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @RequiredArgsConstructor
 @Controller
 public class MemberController {
 
+    private final MemberService memberService;
+
     @GetMapping("/")
     public String index(){
         return "index";
+    }
+
+    @GetMapping("/join")
+    public String join(){
+        return "join";
     }
 
     @GetMapping("/login")
@@ -22,14 +26,4 @@ public class MemberController {
         return "login";
     }
 
-    @GetMapping("/logout")
-    public String logout(){
-        return "redirect:/login";
-    }
-
-    @PostMapping("/join")
-    public String join(JoinDto joinDto){
-        MembersDao.insert(joinDto);
-        return "redirect:/login";
-    }
 }

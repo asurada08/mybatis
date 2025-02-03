@@ -1,9 +1,10 @@
 package com.example.mybatis.dto;
 
-import lombok.Getter;
-import lombok.Setter;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import com.example.mybatis.dto.JoinDto;
 
 @Getter
 @Setter
@@ -17,4 +18,10 @@ public class MembersDto {
     private String del_yn;
     private String created_at;
     private String updated_at;
+
+    public MembersDto (String login_id, String password, String nickname) {
+        this.login_id = login_id;
+        this.password = password;
+        this.nickname = nickname;
+    }
 }

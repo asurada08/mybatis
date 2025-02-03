@@ -5,27 +5,10 @@
 <mapper namespace="com.example.mybatis.dao.MembersDao">
 
     <insert id="insert">
-        INSERT INTO Members (login_id, password, nickname, createdAt) VALUES(#{login_id}, #{password}, #{nickname}, sysdate)
+        INSERT INTO Members(login_id, password, nickname, createdAt) VALUES(#{login_id}, #{password}, #{nickname}, sysdate)
     </insert>
 
-    <select id="findById" resultType="com.example.mybatis.dto.MembersDto">
-        SELECT * FROM Members WHERE id = #{id}
-    </select>
-
-    <select id="findAll" resultType="com.example.mybatis.dto.MembersDto">
-
-    </select>
-
     <select id="login" resultType="com.example.mybatis.dto.MembersDto">
-        SELECT * FROM Members WHERE login_id = #{login_id} AND password =${password}
+        select * from members where login_id = #{login_id} and password = #{password}
     </select>
-
-    <update id="update">
-
-    </update>
-
-    <delete id="delete">
-
-    </delete>
-
 </mapper>
