@@ -1,7 +1,10 @@
 package com.example.mybatis.dto;
 
-public class BoardDto {
-    private int id;
+import lombok.Getter;
+
+@Getter
+public class BoardsDto {
+    private Integer id;
     private String title;
     private String content;
     private String member_id;

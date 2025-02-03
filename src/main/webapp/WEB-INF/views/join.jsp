@@ -7,10 +7,12 @@
 <title></title>
 </head>
 <body>
-    <form name="login" method="post" action="login">
+    <form name="login" method="post" action="sign_in">
         아 이 디 : <input type="text" id="login_id" name="login_id"><br>
         비 밀 번 호 : <input type="password" id="login_password" name="login_password"><br>
-        <input type="submit" value="로그인">
+        비 밀 번 호 : <input type="password" id="password_cek" name="login_password"><br>
+        닉 네 임 : <input type="text" id="nickname" name="nickname"><br>
+        <input type="submit" value="회원가입">
     </form>
 </body>
 </html>

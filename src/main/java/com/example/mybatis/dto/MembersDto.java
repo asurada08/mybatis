@@ -1,16 +1,16 @@
 package com.example.mybatis.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
-public class MemberDto {
-    private int id;
+public class MembersDto {
+    private Integer id;
     private String login_id;
     private String password;
     private String nickname;
