@@ -31,4 +31,7 @@ public class MemberService {
         return membersDtoPW;
     }
 
+    //public int idCheck(String login_id) throws Exception{
+    //}
+
 }

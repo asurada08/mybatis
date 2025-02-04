@@ -7,4 +7,5 @@ public interface MembersDao {
     public void insert(MembersDto membersDto);
     public MembersDto login(LoginDto loginDto);
     public MembersDto findByLogin_id(String login_id);
+    public int idCheck(String login_id);
 }

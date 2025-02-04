@@ -15,7 +15,7 @@ public class MembersDto {
     private String login_id;
     private String password;
     private String nickname;
-    private String del_yn;
+    private String del_yn = "N";
     private String created_at;
     private String updated_at;
 
