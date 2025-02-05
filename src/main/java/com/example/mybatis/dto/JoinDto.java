@@ -11,8 +11,7 @@ public class JoinDto {
     private String nickname;
 
     public MembersDto toEntity() {
-        MembersDto membersDto;
-        membersDto = new MembersDto(this.login_id, this.password, this.nickname);
+        MembersDto membersDto = new MembersDto(this.login_id, this.password, this.nickname);
         return membersDto;
     }
 }

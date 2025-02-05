@@ -8,8 +8,8 @@
         select * from members where login_id = #{login_id} and password = #{password}
     </select>
 
-    <insert id="insert">
-        INSERT INTO Members(login_id, password, nickname) VALUES(#{login_id}, #{password}, #{nickname})
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into members(login_id, password, nickname) VALUES(#{login_id}, #{password}, #{nickname})
     </insert>
 
     <select id="idCheck" parameterType="com.example.mybatis.dto.MembersDto" resultType="int">

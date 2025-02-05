@@ -18,7 +18,7 @@
                 <td>비밀번호</td>
                 <td><input type="password" name="password"></td>
             <tr>
-                <td colspan="2" align="center">
+                <td colspan="2" text-align="center">
                     <input type="submit" value="로그인" onclick="return loginCheck()">
                     <input type="button" value="회원가입" onclick="location.href='joinForm'">
                 </td>

@@ -8,15 +8,38 @@ import com.example.mybatis.dao.MembersDao;
 import com.example.mybatis.dto.JoinDto;
 import com.example.mybatis.dto.MembersDto;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RequiredArgsConstructor
 @Service
 public class MemberService {
 
     private final MembersDao membersDao;
 
-    public void join(JoinDto joinDto){
+    public Map<String, Object> join(JoinDto joinDto){
+
+        System.out.println("service - join call");
         MembersDto membersDto = joinDto.toEntity();
-        membersDao.insert(membersDto);
+
+        Map<String, Object> response = new HashMap<>();
+
+        String result = "fall";
+
+        int memberId = -1;
+
+        try {
+            memberId = membersDao.insert(membersDto);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        if(memberId == 1) {
+            result = "ok";
+        }
+        response.put("result", result);
+
+        return response;
     }
 
     public MembersDto login(LoginDto loginDto) {
