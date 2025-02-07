@@ -14,4 +14,6 @@ public class JoinDto {
         MembersDto membersDto = new MembersDto(this.login_id, this.password, this.nickname);
         return membersDto;
     }
+
+
 }

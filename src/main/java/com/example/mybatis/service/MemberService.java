@@ -54,7 +54,9 @@ public class MemberService {
         return membersDtoPW;
     }
 
-    //public int idCheck(String login_id) throws Exception{
-    //}
+    public int idCheck(MembersDto membersDto) throws Exception{
+        int result = membersDao.idCheck(membersDto);
+        return result;
+    }
 
 }

@@ -5,8 +5,9 @@
 <head>
 <meta charset="utf-8">
 <title></title>
-    <script type="text/javascript" src="/js/Members.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/Members.js"></script>
 </head>
 <body>
     <table>
@@ -14,6 +15,13 @@
             <td>아 이 디</td>
             <td>
                 <input type="text" name="login_id" size="20" id="login_id">
+                <button type="button" name="idCheck" id="idCheck">중복확인</button>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <div id="idCheckMsg"></div>
             </td>
         </tr>
         <tr>
@@ -29,9 +37,8 @@
             <td><input type="text" name="nickname" size="20" id='nickname'>
         </tr>
         <tr>
-            <td colspan="2" text-aline="center">
+            <td text-aline="center">
                 <input type="submit" value="회원가입" onclick="join()">
-                <input type="reset" value="취소">
             </td>
         </tr>
     </table>

@@ -18,6 +18,12 @@ function join(){
     let password_check = $("#password_check").val();
     let nickname = $("#nickname").val();
 
+    if(login_id == ""){
+        alert("아이디를 입력해주세요");
+//        $("#login_id").focus();
+        return false;
+    }
+
     if(login_id.length < 2){
         alert("아이디는 2글자 이상이어야 합니다");
 //        $("#login_id").focus();
@@ -57,4 +63,33 @@ function join(){
                 alert("똑바로 써라")
             }
         });
+}
+
+$(document).ready(function(){
+    $("#idCheck").click(function(){
+        console.log("clicked");
+        idCheck();
+    });
+});
+
+function idCheck(){
+    let login_id = $("#login_id").val();
+    console.log("아이디 값 : " + login_id);
+    $.ajax({
+        type : "get",
+        url : "/idCheck",
+        data : {"login_id" : login_id},
+        dataType : "json",
+        success: function(data){
+            console.log("응답 데이터 : " + data);
+            if (data == 1){
+                $("#idCheckMsg").html("사용중인 아이디 입니다");
+            } else {
+                $("#idCheckMsg").html("사용 가능한 아이디 입니다");
+            }
+        },
+        error : function(e){
+            console.log(e)
+        }
+    });
 }

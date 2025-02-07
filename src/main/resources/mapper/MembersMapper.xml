@@ -13,6 +13,6 @@
     </insert>
 
     <select id="idCheck" parameterType="com.example.mybatis.dto.MembersDto" resultType="int">
-        select * from members where login_id = #{login_id}
+        select count(login_id) from members where login_id = #{login_id}
     </select>
 </mapper>
