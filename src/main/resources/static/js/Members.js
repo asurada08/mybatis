@@ -1,3 +1,5 @@
+let idCheckPass = false;
+
 function loginCheck(){
     if (document.login.login_id.value.length == 0){
         alert("아이디를 입력해주세요");
@@ -42,6 +44,11 @@ function join(){
         return false;
     }
 
+    if (idCheckPass == false) {
+        alert("중복확인 해주세요")
+        return false;
+    }
+
     let params = {
         login_id: login_id,
         password: password,
@@ -74,6 +81,11 @@ $(document).ready(function(){
 
 function idCheck(){
     let login_id = $("#login_id").val();
+    if (login_id == "" || login_id.length == 0){
+        $("#idCheckMsg").text("아이디를 입력하세요");
+        return false;
+    }
+
     console.log("아이디 값 : " + login_id);
     $.ajax({
         type : "get",
@@ -85,7 +97,9 @@ function idCheck(){
             if (data == 1){
                 $("#idCheckMsg").html("사용중인 아이디 입니다");
             } else {
-                $("#idCheckMsg").html("사용 가능한 아이디 입니다");
+                $("#idCheckMsg").text("사용가능한 아이디 입니다")
+                idCheckPass = true;
+
             }
         },
         error : function(e){
