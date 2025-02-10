@@ -42,21 +42,44 @@ public class MemberService {
         return response;
     }
 
-    public MembersDto login(LoginDto loginDto) {
-        MembersDto membersDtoPW = membersDao.findByLogin_id(loginDto.getLogin_id());
-
-        if(membersDtoPW == null){
-            return null;
-        }
-        if(!(membersDtoPW.getPassword().equals(loginDto.getPassword()))){
-            return null;
-        }
-        return membersDtoPW;
-    }
-
     public int idCheck(MembersDto membersDto) throws Exception{
         int result = membersDao.idCheck(membersDto);
         return result;
     }
+
+    public Map<String, Object> login(LoginDto loginDto) {
+        System.out.println("service - login call");
+        Map<String, Object> response = new HashMap<>();
+
+        if (loginDto.getLogin_id() == null || loginDto.getLogin_id().trim().isEmpty()) {
+            response.put("status", "fail");
+            response.put("message", "아이디를 입력해주세요");
+            return response;
+        }
+        if (loginDto.getPassword() == null || loginDto.getPassword().trim().isEmpty()) {
+            response.put("status", "fail");
+            response.put("message", "비밀번호를 입력해주세요");
+            return response;
+        }
+
+        MembersDto membersDtoLogin = membersDao.findByLogin_id(loginDto.getLogin_id());
+
+        if (membersDtoLogin == null) {
+            response.put("status", "fail");
+            response.put("message", "아이디를 확인해주세요");
+            return response;
+        }
+
+        if (!(membersDtoLogin.getPassword().equals(loginDto.getPassword()))) {
+            response.put("status", "fail");
+            response.put("message", "비밀번호를 확인해주세요");
+            return response;
+        }
+
+        response.put("status", "success");
+        response.put("login_id", membersDtoLogin.getLogin_id());
+        return response;
+    }
+
 
 }

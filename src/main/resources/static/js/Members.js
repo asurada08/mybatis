@@ -1,17 +1,50 @@
 let idCheckPass = false;
 
-function loginCheck(){
-    if (document.login.login_id.value.length == 0){
+$(document).ready(function(){
+    $("#btnLogin").click(function(){
+        console.log("login");
+        login();
+    });
+});
+
+function login(){
+    let login_id = $("#login_id").val();
+    let password = $("#password").val();
+
+    if (login_id == ""){
         alert("아이디를 입력해주세요");
-        login.login_id.focus();
         return false;
     }
-    if (document.login.password.value == ''){
+
+    if (password == ""){
         alert("비밀번호를 입력해주세요");
-        login.password.focus();
         return false;
     }
-    return true;
+
+    let data = {
+        login_id : login_id,
+        password : password
+    };
+
+    console.log(JSON.stringify(data));
+
+    $.ajax("/login", {
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify(data),
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                }
+        }).done(function(data){
+            if (data.status === "success") {
+                alert("로그인 완료");
+                location.href = "/home";
+            } else {
+                alert(data.message);
+            }
+        }).fail(function(error){
+            alert("서버 오류 발생");
+        });
 }
 
 function join(){
@@ -67,13 +100,13 @@ function join(){
             if (result === "ok") {
                 window.location.href = "http://localhost:8080/loginForm";
             } else {
-                alert("똑바로 써라")
+                alert("똑바로 써라");
             }
         });
 }
 
 $(document).ready(function(){
-    $("#idCheck").click(function(){
+    $("#btnidCheck").click(function(){
         console.log("clicked");
         idCheck();
     });
@@ -81,12 +114,14 @@ $(document).ready(function(){
 
 function idCheck(){
     let login_id = $("#login_id").val();
+
     if (login_id == "" || login_id.length == 0){
         $("#idCheckMsg").text("아이디를 입력하세요");
         return false;
     }
 
     console.log("아이디 값 : " + login_id);
+
     $.ajax({
         type : "get",
         url : "/idCheck",
@@ -95,11 +130,10 @@ function idCheck(){
         success: function(data){
             console.log("응답 데이터 : " + data);
             if (data == 1){
-                $("#idCheckMsg").html("사용중인 아이디 입니다");
+                $("#idCheckMsg").text("사용중인 아이디 입니다");
             } else {
-                $("#idCheckMsg").text("사용가능한 아이디 입니다")
                 idCheckPass = true;
-
+                $("#idCheckMsg").text("사용가능한 아이디 입니다")
             }
         },
         error : function(e){

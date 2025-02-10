@@ -1,8 +1,11 @@
 package com.example.mybatis.controller;
 
 import com.example.mybatis.dto.JoinDto;
+import com.example.mybatis.dto.LoginDto;
 import com.example.mybatis.dto.MembersDto;
 import com.example.mybatis.service.MemberService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +16,7 @@ import java.util.Map;
 @Controller
 public class MemberController {
     private final MemberService memberService;
+    private HttpSession httpSession;
 
     @GetMapping("/")
     public String index(){
@@ -25,8 +29,28 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String login(){
-        return "login";
+    @ResponseBody
+    public Map<String, Object> login(@RequestBody LoginDto loginDto, HttpSession httpSession){
+        System.out.println("controller - login call");
+        System.out.println(loginDto.getLogin_id());
+
+        Map<String, Object> response = memberService.login(loginDto);
+
+        if (response != null && response.containsKey("status") && response.get("status").equals("success")){
+            httpSession.setAttribute("login_id", response.get("login_id"));
+        }
+
+        System.out.println(response);
+        return response;
+    }
+
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+           session.invalidate();
+        }
+        return "redirect:/login";
     }
 
     @GetMapping("/joinForm")
@@ -37,7 +61,6 @@ public class MemberController {
     @PostMapping("/join")
     @ResponseBody
     public Map<String, Object> join(@RequestBody JoinDto joinDto){
-
         System.out.println("controller - join call");
         System.out.println(joinDto.getLogin_id());
         Map<String, Object> response = memberService.join(joinDto);
@@ -49,11 +72,22 @@ public class MemberController {
     @GetMapping("/idCheck")
     @ResponseBody
     public int idCheck(@RequestParam("login_id") String login_id) throws Exception{
+        System.out.println("controller - idCheck call");
+        System.out.println(login_id);
         MembersDto membersDto = new MembersDto();
         membersDto.setLogin_id(login_id);
         int result = memberService.idCheck(membersDto);
         return result;
     }
 
+    @GetMapping("/updateForm")
+    public String updateForm(){
+        return "updateForm";
+    }
+
+    @GetMapping("/home")
+    public String home(){
+        return "home";
+    }
 
 }
