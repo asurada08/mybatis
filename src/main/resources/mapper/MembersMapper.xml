@@ -5,7 +5,7 @@
 <mapper namespace="com.example.mybatis.dao.MembersDao">
 
     <select id="findByLogin_id" resultType="com.example.mybatis.dto.MembersDto">
-        select * from members where login_id = #{login_id}
+        select * from members where login_id = #{login_id} and del_yn = "n"
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
@@ -13,6 +13,14 @@
     </insert>
 
     <select id="idCheck" parameterType="com.example.mybatis.dto.MembersDto" resultType="int">
-        select count(login_id) from members where login_id = #{login_id}
+        select count(login_id) from members where login_id = #{login_id} and del_yn = "n"
+    </select>
+
+    <select id="update">
+        update members set password = #{password}, nickname = #{nickname}, updated_at = now() where id = #{id} and del_yn = "n"
+    </select>
+
+    <select id="delete">
+        update member set del_yn = "y" where id = #{id}
     </select>
 </mapper>

@@ -7,6 +7,6 @@
 <title></title>
 </head>
 <body>
-<a href="loginForm">로그인 페이지로 이동</a>
+<a href="/loginForm">로그인 페이지로 이동</a>
 </body>
 </html>

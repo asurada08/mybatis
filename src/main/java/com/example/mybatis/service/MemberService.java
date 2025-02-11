@@ -51,12 +51,12 @@ public class MemberService {
         System.out.println("service - login call");
         Map<String, Object> response = new HashMap<>();
 
-        if (loginDto.getLogin_id() == null || loginDto.getLogin_id().trim().isEmpty()) {
+        if (loginDto.getLogin_id() == null || loginDto.getLogin_id().isBlank()) {
             response.put("status", "fail");
             response.put("message", "아이디를 입력해주세요");
             return response;
         }
-        if (loginDto.getPassword() == null || loginDto.getPassword().trim().isEmpty()) {
+        if (loginDto.getPassword() == null || loginDto.getPassword().isBlank()) {
             response.put("status", "fail");
             response.put("message", "비밀번호를 입력해주세요");
             return response;
@@ -77,7 +77,7 @@ public class MemberService {
         }
 
         response.put("status", "success");
-        response.put("login_id", membersDtoLogin.getLogin_id());
+        response.put("loginUser", membersDtoLogin);
         return response;
     }
 

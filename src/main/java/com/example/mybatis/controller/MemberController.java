@@ -16,7 +16,7 @@ import java.util.Map;
 @Controller
 public class MemberController {
     private final MemberService memberService;
-    private HttpSession httpSession;
+    private final HttpSession httpSession;
 
     @GetMapping("/")
     public String index(){
@@ -25,7 +25,7 @@ public class MemberController {
 
     @GetMapping("/loginForm")
     public String loginForm(){
-        return "loginForm";
+        return "member/loginForm";
     }
 
     @PostMapping("/login")
@@ -37,25 +37,27 @@ public class MemberController {
         Map<String, Object> response = memberService.login(loginDto);
 
         if (response != null && response.containsKey("status") && response.get("status").equals("success")){
-            httpSession.setAttribute("login_id", response.get("login_id"));
+            //httpSession.setAttribute("login_id", response.get("login_id"));
+            MembersDto loginUser = (MembersDto) response.get("loginUser");
+            httpSession.setAttribute("loginUser", loginUser);
         }
 
         System.out.println(response);
         return response;
     }
 
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public String logout(HttpServletRequest request){
         HttpSession session = request.getSession(false);
         if (session != null) {
            session.invalidate();
         }
-        return "redirect:/login";
+        return "redirect:/";
     }
 
     @GetMapping("/joinForm")
     public String joinForm(){
-        return "joinForm";
+        return "member/joinForm";
     }
 
     @PostMapping("/join")
@@ -83,11 +85,6 @@ public class MemberController {
     @GetMapping("/updateForm")
     public String updateForm(){
         return "updateForm";
-    }
-
-    @GetMapping("/home")
-    public String home(){
-        return "home";
     }
 
 }
