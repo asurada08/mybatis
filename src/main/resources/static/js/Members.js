@@ -11,15 +11,10 @@ function login(){
     let login_id = $("#login_id").val();
     let password = $("#password").val();
 
-    if (login_id == ""){
-        alert("아이디를 입력해주세요");
-        return false;
-    }
-
-    if (password == ""){
-        alert("비밀번호를 입력해주세요");
-        return false;
-    }
+//    if (login_id == "" || password == ""){
+//        alert("아이디, 비밀번호를 확인해주세요");
+//        return false;
+//    }
 
     let data = {
         login_id : login_id,

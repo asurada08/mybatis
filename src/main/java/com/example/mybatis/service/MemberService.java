@@ -1,6 +1,7 @@
 package com.example.mybatis.service;
 
 import com.example.mybatis.dto.LoginDto;
+import com.example.mybatis.dto.UpdateDto;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -51,28 +52,33 @@ public class MemberService {
         System.out.println("service - login call");
         Map<String, Object> response = new HashMap<>();
 
-        if (loginDto.getLogin_id() == null || loginDto.getLogin_id().isBlank()) {
-            response.put("status", "fail");
-            response.put("message", "아이디를 입력해주세요");
-            return response;
-        }
-        if (loginDto.getPassword() == null || loginDto.getPassword().isBlank()) {
-            response.put("status", "fail");
-            response.put("message", "비밀번호를 입력해주세요");
-            return response;
-        }
+//        if (loginDto.getLogin_id() == null || loginDto.getLogin_id().isBlank()) {
+//            response.put("status", "fail");
+//            response.put("message", "아이디를 입력해주세요");
+//            return response;
+//        }
+//        if (loginDto.getPassword() == null || loginDto.getPassword().isBlank()) {
+//            response.put("status", "fail");
+//            response.put("message", "비밀번호를 입력해주세요");
+//            return response;
+//        }
 
-        MembersDto membersDtoLogin = membersDao.findByLogin_id(loginDto.getLogin_id());
+        MembersDto membersDtoLogin = membersDao.login(loginDto.getLogin_id(), loginDto.getPassword());
 
+//        if (membersDtoLogin == null) {
+//            response.put("status", "fail");
+//            response.put("message", "아이디를 확인해주세요");
+//            return response;
+//        }
+//
+//        if (!(membersDtoLogin.getPassword().equals(loginDto.getPassword()))) {
+//            response.put("status", "fail");
+//            response.put("message", "비밀번호를 확인해주세요");
+//            return response;
+//        }
         if (membersDtoLogin == null) {
             response.put("status", "fail");
-            response.put("message", "아이디를 확인해주세요");
-            return response;
-        }
-
-        if (!(membersDtoLogin.getPassword().equals(loginDto.getPassword()))) {
-            response.put("status", "fail");
-            response.put("message", "비밀번호를 확인해주세요");
+            response.put("message", "아이디, 비밀번호를 확인해주세요");
             return response;
         }
 
@@ -80,6 +86,5 @@ public class MemberService {
         response.put("loginUser", membersDtoLogin);
         return response;
     }
-
 
 }

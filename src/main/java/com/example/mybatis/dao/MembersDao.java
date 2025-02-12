@@ -5,6 +5,6 @@ import com.example.mybatis.dto.MembersDto;
 
 public interface MembersDao {
     public int insert(MembersDto membersDto);
-    public MembersDto findByLogin_id(String login_id);
+    public MembersDto login(String login_id, String password);
     public int idCheck(MembersDto membersDto);
 }
