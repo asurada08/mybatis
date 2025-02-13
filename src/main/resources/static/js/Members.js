@@ -2,7 +2,7 @@ let idCheckPass = false;
 
 $(document).ready(function(){
     $("#btnLogin").click(function(){
-        console.log("login");
+        console.log("login clicked");
         login();
     });
 });
@@ -102,7 +102,7 @@ function join(){
 
 $(document).ready(function(){
     $("#btnidCheck").click(function(){
-        console.log("clicked");
+        console.log("idCheck clicked");
         idCheck();
     });
 });
@@ -122,6 +122,9 @@ function idCheck(){
         url : "/idCheck",
         data : {"login_id" : login_id},
         dataType : "json",
+        headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+        },
         success: function(data){
             console.log("응답 데이터 : " + data);
             if (data == 1){
@@ -133,6 +136,77 @@ function idCheck(){
         },
         error : function(e){
             console.log(e)
+        }
+    });
+}
+
+$(document).ready(function(){
+    $("#btnUpdate").click(function(){
+        console.log("update clicked")
+        update();
+    });
+});
+
+function update(){
+    let id = $("#id").val();
+    let password = $("#password").val();
+    let password_check = $("#password_check").val();
+    let nickname = $("#nickname").val();
+
+    if(password != password_check){
+        alert("비밀번호가 일치하지 않습니다");
+        return false;
+    }
+
+    let data = {
+        password : password,
+        nickname : nickname
+    }
+
+    $.ajax("/update/" + id , {
+        type:"post",
+        data:JSON.stringify(data),
+        dataType:"json",
+        headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+        }
+    }).done((res) => {
+        if (res.code == 1) {
+            alert("수정 완료");
+            window.location.href = "http://localhost:8080/home";
+        } else {
+            alert("입력 오류");
+        }
+    });
+}
+
+$(document).ready(function(){
+    $("#btnDelete").click(function(){
+        console.log("delete clicked")
+        cancel();
+    });
+});
+
+function cancel(){
+    let id = $("#id").val();
+
+    let data = {
+        del_yn : "Y"
+    }
+
+    $.ajax("/delete/" + id , {
+        type:"post",
+        data:JSON.stringify(data),
+        dataType:"json",
+        headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+        }
+    }).done((res) => {
+        if (res.code == 1) {
+            alert("수정 완료");
+            window.location.href = "http://localhost:8080/home";
+        } else {
+            alert("입력 오류");
         }
     });
 }

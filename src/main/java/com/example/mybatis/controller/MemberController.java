@@ -3,13 +3,16 @@ package com.example.mybatis.controller;
 import com.example.mybatis.dto.JoinDto;
 import com.example.mybatis.dto.LoginDto;
 import com.example.mybatis.dto.MembersDto;
+import com.example.mybatis.dto.UpdateDto;
 import com.example.mybatis.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -17,11 +20,6 @@ import java.util.Map;
 public class MemberController {
     private final MemberService memberService;
     private final HttpSession httpSession;
-
-    @GetMapping("/")
-    public String index(){
-        return "index";
-    }
 
     @GetMapping("/loginForm")
     public String loginForm(){
@@ -82,9 +80,38 @@ public class MemberController {
         return result;
     }
 
-    @GetMapping("/updateForm")
-    public String updateForm(){
+    @GetMapping("/updateForm/{id}")
+    public String updateForm(@PathVariable Integer id, Model model){
+        MembersDto membersDtoUpdate = memberService.updateForm(id);
+        model.addAttribute("loginUser", membersDtoUpdate);
         return "member/updateForm";
+    }
+
+    @PostMapping("/update/{id}")
+    @ResponseBody
+    public Map<String, Object> update(@PathVariable Integer id, @RequestBody UpdateDto updateDto){
+        System.out.println("controller - update call");
+        Map<String, Object> response = memberService.update(id, updateDto);
+
+//        if (response.get("code").equals(1)) {
+//            MembersDto membersDtoUpdate = (MembersDto) response.get("data");
+//            httpSession.setAttribute("loginUser", membersDtoUpdate);
+//        }
+        return response;
+    }
+
+    @PostMapping("/delete/{id}")
+    @ResponseBody
+    public Map<String, Object> delete(@PathVariable Integer id, HttpServletRequest request){
+        System.out.println("controller - delete call");
+        Map<String, Object> response = memberService.delete(id);
+
+        HttpSession session = request.getSession(false); // 현재 세션을 가져옵니다.
+        if (session != null) {
+            session.invalidate(); // 세션을 무효화하여 로그아웃 처리
+        }
+
+        return response;
     }
 
 }

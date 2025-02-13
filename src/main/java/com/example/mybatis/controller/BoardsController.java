@@ -15,7 +15,7 @@ public class BoardsController {
     private final BoardService boardService;
     private final HttpSession httpSession;
 
-    @GetMapping("/home")
+    @GetMapping({"/", "/home"})
     public String board(HttpSession session, Model model) {
         MembersDto loginUser = (MembersDto) session.getAttribute("loginUser");
         if (loginUser != null) {

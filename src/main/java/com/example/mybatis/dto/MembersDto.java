@@ -23,4 +23,9 @@ public class MembersDto {
         this.password = password;
         this.nickname = nickname;
     }
+
+    public void update(UpdateDto updateDto){
+        this.password = updateDto.getPassword();
+        this.nickname = updateDto.getNickname();
+    }
 }

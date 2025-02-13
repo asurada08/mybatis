@@ -87,4 +87,45 @@ public class MemberService {
         return response;
     }
 
+    public MembersDto updateForm(Integer id){
+        MembersDto membersDtoUpdate = membersDao.findById(id);
+        return membersDtoUpdate;
+    }
+
+    public Map<String, Object> update(Integer id, UpdateDto updateDto){
+        System.out.println("service - update call");
+        Map<String, Object> response = new HashMap<>();
+        MembersDto membersDtoUpdate = membersDao.findById(id);
+
+        if (membersDtoUpdate == null) {
+            response.put("code", 0);
+            return response;
+        }
+
+        membersDtoUpdate.update(updateDto);
+        membersDao.update(membersDtoUpdate);
+
+        response.put("code", 1);
+        response.put("data", membersDtoUpdate);
+        return response;
+    }
+
+    public Map<String, Object> delete(Integer id) {
+        System.out.println("service - delete call");
+        Map<String, Object> response = new HashMap<>();
+        MembersDto membersDtoDel = membersDao.findById(id);
+
+        if (membersDtoDel == null) {
+            response.put("code", 0);
+            response.put("message", "회원탈퇴 실패");
+            return response;
+        }
+
+        membersDao.delete(id);
+
+        response.put("code", 1);
+        response.put("data", "회원탈퇴 성공");
+        return response;
+    }
+
 }
