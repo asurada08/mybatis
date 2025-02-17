@@ -9,13 +9,33 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript" src="/js/Boards.js"></script>
 <script type="text/javascript" src="/js/Members.js"></script>
+<style>
+    .header {
+        display : inline-block;
+    }
+    .header ul {
+        list-style-type : none;
+    }
+    .header li {
+        display : inline-block;
+    }
+    .nav ul {
+        list-style-type : none;
+    }
+    .nav li {
+        display : inline-block;
+    }
+    .footer p {
+        display : inline-block;
+    }
+</style>
 </head>
 <body>
     <nav>
-        <div>
+        <div class="header">
             <a href="/home">내맘대로 게시판</a>
         </div>
-        <div>
+        <div class="header">
             <ul>
                 <c:choose>
                     <c:when test="${empty loginUser}">
@@ -29,6 +49,16 @@
                         <li><a href="logout">로그아웃</a></li>
                     </c:otherwise>
                 </c:choose>
+            </ul>
+        </div>
+        <div class="nav">
+            <ul>
+                <li>공지사항</li>
+                <li>음식관련</li>
+                <li>게임관련</li>
+                <li>영화관련</li>
+                <li>자유게시판</li>
+                <li>Q & A</li>
             </ul>
         </div>
     </nav>
