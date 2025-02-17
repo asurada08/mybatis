@@ -1,9 +1,9 @@
 package com.example.mybatis.controller;
 
-import com.example.mybatis.dto.JoinDto;
-import com.example.mybatis.dto.LoginDto;
-import com.example.mybatis.dto.MembersDto;
-import com.example.mybatis.dto.UpdateDto;
+import com.example.mybatis.dto.members.JoinDto;
+import com.example.mybatis.dto.members.LoginDto;
+import com.example.mybatis.dto.members.MembersDto;
+import com.example.mybatis.dto.members.UpdateDto;
 import com.example.mybatis.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @RequiredArgsConstructor

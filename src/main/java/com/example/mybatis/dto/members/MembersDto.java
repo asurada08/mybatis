@@ -1,4 +1,4 @@
-package com.example.mybatis.dto;
+package com.example.mybatis.dto.members;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

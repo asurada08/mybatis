@@ -1,13 +1,13 @@
 package com.example.mybatis.service;
 
-import com.example.mybatis.dto.LoginDto;
-import com.example.mybatis.dto.UpdateDto;
-import org.springframework.stereotype.Service;
-
-import lombok.RequiredArgsConstructor;
+import com.example.mybatis.dto.members.LoginDto;
+import com.example.mybatis.dto.members.UpdateDto;
+import com.example.mybatis.dto.members.JoinDto;
+import com.example.mybatis.dto.members.MembersDto;
 import com.example.mybatis.dao.MembersDao;
-import com.example.mybatis.dto.JoinDto;
-import com.example.mybatis.dto.MembersDto;
+
+import org.springframework.stereotype.Service;
+import lombok.RequiredArgsConstructor;
 
 import java.util.HashMap;
 import java.util.Map;

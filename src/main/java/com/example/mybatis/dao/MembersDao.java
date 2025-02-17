@@ -1,7 +1,6 @@
 package com.example.mybatis.dao;
 
-import com.example.mybatis.dto.LoginDto;
-import com.example.mybatis.dto.MembersDto;
+import com.example.mybatis.dto.members.MembersDto;
 
 public interface MembersDao {
     public int insert(MembersDto membersDto);
