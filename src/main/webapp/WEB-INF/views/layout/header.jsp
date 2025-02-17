@@ -11,32 +11,61 @@
 <script type="text/javascript" src="/js/Members.js"></script>
 <style>
     .header {
-        display : inline-block;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
     }
-    .header ul {
-        list-style-type : none;
+
+    .header a.left {
+        font-size: 24px;
     }
+
+    .header ul.right {
+        list-style-type: none;
+        margin: 0;
+        padding: 10px;
+    }
+
     .header li {
-        display : inline-block;
+        display: inline-block;
+        margin-left: 15px;
     }
+
+    .header a {
+        text-decoration: none;
+        color: black;
+    }
+
     .nav ul {
-        list-style-type : none;
+        list-style-type: none;
+        margin: 0;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
     }
+
     .nav li {
-        display : inline-block;
+        display: inline-block;
+        margin-left: 15px;
     }
+
+    .footer {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+    }
+
     .footer p {
-        display : inline-block;
+        margin: 0;
     }
 </style>
 </head>
 <body>
     <nav>
         <div class="header">
-            <a href="/home">내맘대로 게시판</a>
-        </div>
-        <div class="header">
-            <ul>
+            <a href="/home" class="left">내맘대로 게시판</a>
+            <ul class="right">
                 <c:choose>
                     <c:when test="${empty loginUser}">
                         <li><a href="loginForm">로그인</a></li>
