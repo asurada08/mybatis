@@ -2,7 +2,7 @@ let id = $("#id").val();
 
 $(document).ready(function(){
     $("#btnWrite").click(function(){
-        console.log("Write clicked")
+        console.log("Write clicked");
         write();
     });
 });
