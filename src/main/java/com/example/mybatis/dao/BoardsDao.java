@@ -13,5 +13,6 @@ public interface BoardsDao {
     public List<MainListDto> findAll();
     public BoardsDto findById(Integer id);
     public DetailDto findByBoardsId(@Param("boardsId") Integer boardsId, @Param("loginUserId") Integer loginUserId);
-    public void update(BoardsDto boardsDto);
+    public void updateB(BoardsDto boardsDto);
+    public void deleteB(Integer id);
 }

@@ -7,6 +7,7 @@ import com.example.mybatis.dto.boards.UpdateDto;
 import com.example.mybatis.dto.boards.WriteDto;
 import com.example.mybatis.dto.members.MembersDto;
 import com.example.mybatis.service.BoardService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -40,7 +41,7 @@ public class BoardsController {
         return "/boards/writeForm";
     }
 
-    @PostMapping("boards/write")
+    @PostMapping("/boards/write")
     @ResponseBody
     public Map<String, Object> write(@RequestBody WriteDto writeDto) {
         System.out.println("controller - write call");
@@ -67,11 +68,19 @@ public class BoardsController {
         return "/boards/updateForm";
     }
 
-    @PostMapping("/boards/update")
+    @PostMapping("/boards/updateB/{id}")
     @ResponseBody
-    public Map<String, Object> update(@PathVariable Integer id, @RequestBody UpdateDto updateDto){
-        System.out.println("controller - update call id : " + id);
-        Map<String, Object> response = boardService.update(id, updateDto);
+    public Map<String, Object> updateB(@PathVariable Integer id, @RequestBody UpdateDto updateDto){
+        System.out.println("B controller - update call id : " + id);
+        Map<String, Object> response = boardService.updateB(id, updateDto);
+        return response;
+    }
+
+    @PostMapping("/deleteB/{id}")
+    @ResponseBody
+    public Map<String, Object> deleteB(@PathVariable Integer id, HttpServletRequest request){
+        System.out.println("B controller - delete call");
+        Map<String, Object> response = boardService.deleteB(id);
         return response;
     }
 }

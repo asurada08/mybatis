@@ -18,6 +18,6 @@
     <div>
         <textarea id="content" rows="8">${boardsDtoUpdate.content}</textarea>
     </div>
-    <button type="button" id="btnUpdateB">수정</button>
+    <button type="button" id="btnUpdateB">수정</button> <button type="button" id="btnDeleteB">삭제</button>
 </div>
 <%@ include file="../layout/footer.jsp"%>

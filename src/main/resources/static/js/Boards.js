@@ -1,8 +1,8 @@
-let id = $("#id").val();
+//let id = $("#id").val();
 
 $(document).ready(function(){
     $("#btnWrite").click(function(){
-        console.log("Write clicked");
+        console.log("B Write clicked");
         write();
     });
 });
@@ -34,22 +34,28 @@ function write(){
 
 $(document).ready(function(){
     $("#btnUpdateB").click(function(){
-        console.log("Update clicked");
-        update();
+        console.log("B Update clicked");
+        updateB();
     });
 });
 
-function update(){
+function updateB(){
+    let id = $("#id").val();
+    console.log(id);
+
+    if (!id) {
+        alert("id값 문제");
+        return;
+    }
+
     let data = {
-        id : $("#id").val(),
+        id : id,
         title : $("#title").val(),
         content : $("#content").val(),
         category_id : $("#category_id").val()
     }
 
-    console.log(id);
-
-    $.ajax("/boards/update" + id , {
+    $.ajax("/boards/updateB/" + id , {
             type:"post",
             data:JSON.stringify(data),
             dataType:"json",
@@ -62,7 +68,38 @@ function update(){
                 alert("수정 완료");
                 window.location.href = "http://localhost:8080/home";
             } else {
-                alert("입력 오류", res.message);
+                alert("입력 오류 : " + (res.message || res.error || "알 수 없는 오류"));
             }
         });
+}
+
+$(document).ready(function(){
+    $("#btnDeleteB").click(function(){
+        console.log("B delete clicked")
+        cancelB();
+    });
+});
+
+function cancelB(){
+    let id = $("#id").val();
+
+    let data = {
+        del_yn : "Y"
+    }
+
+    $.ajax("/deleteB/" + id , {
+        type:"post",
+        data:JSON.stringify(data),
+        dataType:"json",
+        headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+        }
+    }).done((res) => {
+        if (res.code == 1) {
+            alert("수정 완료");
+            window.location.href = "http://localhost:8080/home";
+        } else {
+            alert("입력 오류");
+        }
+    });
 }
