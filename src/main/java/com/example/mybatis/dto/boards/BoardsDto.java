@@ -11,7 +11,7 @@ public class BoardsDto {
     private String content;
     private Integer members_id;
     private String created_at;
-    private String update_at;
+    private String updated_at;
     private Integer view_cnt;
     private String del_yn;
     private Integer category_id;
@@ -21,5 +21,11 @@ public class BoardsDto {
         this.title = title;
         this.content = content;
         this.category_id = category_id;
+    }
+
+    public void update(UpdateDto updateDto) {
+        this.title = updateDto.getTitle();
+        this.content = updateDto.getContent();
+        this.category_id = updateDto.getCategory_id();
     }
 }

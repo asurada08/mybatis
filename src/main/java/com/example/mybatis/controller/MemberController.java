@@ -49,7 +49,7 @@ public class MemberController {
         if (session != null) {
            session.invalidate();
         }
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     @GetMapping("/joinForm")

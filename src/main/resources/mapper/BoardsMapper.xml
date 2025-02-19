@@ -9,4 +9,16 @@
     <select id="findAll" resultType="com.example.mybatis.dto.boards.MainListDto">
         select b.id, b.title, m.nickname, b.created_at, b.view_cnt from boards b left join members m on b.members_id = m.id where b.del_yn = 'N' order by b.created_at desc
     </select>
+    <select id="findByBoardsId" parameterType="map" resultType="com.example.mybatis.dto.boards.DetailDto">
+        SELECT b.id, b.title, b.content, m.nickname, b.view_cnt, b.created_at, b.updated_at, b.members_id, c.name as category_name from boards b
+        left join members m on b.members_id = m.id
+        left join category c on b.category_id = c.id
+        where b.id = #{boardsId}
+    </select>
+    <select id="findById" resultType="com.example.mybatis.dto.boards.BoardsDto">
+        select * from boards where id = #{id}
+    </select>
+    <update id="update">
+        update boards set id = #{id}, title = #{title}, content = #{content}, category_id = #{category_id} update_at = now() where id = #{id} and del_yn = "N"
+    </update>
 </mapper>

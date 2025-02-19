@@ -2,9 +2,6 @@
 <%@ include file="../layout/header.jsp"%>
 
     <div>
-        <div>
-            검색기능 부분
-        </div>
         <table>
             <thead>
                 <tr>
@@ -19,7 +16,7 @@
                 <c:forEach var="boards" items="${boardsList}">
                     <tr>
                         <th>${boards.id}</th>
-                        <td>${boards.title}</td>
+                        <td><a href="/boards/detail/${boards.id}">${boards.title}</a></td>
                         <td>${boards.nickname}</td>
                         <td>${boards.created_at}</td>
                         <td>${boards.view_cnt}</td>
@@ -27,6 +24,9 @@
                 </c:forEach>
             </tbody>
         </table>
+        <div>
+            검색기능 부분
+        </div>
     </div>
 
 <%@ include file="../layout/footer.jsp"%>

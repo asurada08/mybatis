@@ -1,14 +1,11 @@
 package com.example.mybatis.service;
 
 import com.example.mybatis.dao.BoardsDao;
-import com.example.mybatis.dto.boards.BoardsDto;
-import com.example.mybatis.dto.boards.MainListDto;
-import com.example.mybatis.dto.boards.WriteDto;
+import com.example.mybatis.dto.boards.*;
 import com.example.mybatis.dto.members.MembersDto;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import java.util.HashMap;
 import java.util.List;
@@ -46,5 +43,36 @@ public class BoardService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public DetailDto getDetail(Integer id, Integer loginUserId) {
+        return boardsDao.findByBoardsId(id, loginUserId);
+    }
+
+    public BoardsDto updateForm(Integer id){
+        MembersDto membersDto = (MembersDto) httpSession.getAttribute("loginUser");
+        BoardsDto boardsDtoUpdate = boardsDao.findById(id);
+
+        return boardsDtoUpdate;
+    }
+
+    public Map<String, Object> update(Integer id, UpdateDto updateDto) {
+        System.out.println("service - update call");
+        MembersDto membersDto = (MembersDto) httpSession.getAttribute("loginUser");
+        Map<String, Object> response = new HashMap<>();
+        BoardsDto boardsDtoUpdate = boardsDao.findById(id);
+
+        if (boardsDtoUpdate == null) {
+            response.put("code", 0);
+            response.put("message", "본인 글 만 수정 가능");
+            return response;
+        }
+
+        boardsDtoUpdate.update(updateDto);
+        boardsDao.update(boardsDtoUpdate);
+
+        response.put("code", 1);
+        response.put("data", boardsDtoUpdate);
+        return response;
     }
 }
