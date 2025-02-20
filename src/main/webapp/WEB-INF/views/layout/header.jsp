@@ -68,14 +68,14 @@
             <ul class="right">
                 <c:choose>
                     <c:when test="${empty loginUser}">
-                        <li><a href="loginForm">로그인</a></li>
-                        <li><a href="joinForm">회원가입</a></li>
+                        <li><a href="/loginForm">로그인</a></li>
+                        <li><a href="/joinForm">회원가입</a></li>
                     </c:when>
                     <c:otherwise>
-                        <li><a href="/writeForm">글쓰기</a></li>
+                        <li><a href="/boards/writeForm">글쓰기</a></li>
                         <li>${loginUser.nickname}님 반갑습니다</li>
                         <li><a href="/updateForm/${loginUser.id}">회원정보수정</li>
-                        <li><a href="logout">로그아웃</a></li>
+                        <li><a href="/logout">로그아웃</a></li>
                     </c:otherwise>
                 </c:choose>
             </ul>
