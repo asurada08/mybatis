@@ -5,61 +5,9 @@
 <head>
 <meta charset="utf-8">
 <title></title>
+<link href="/css/mainCss.css" rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript" src="/js/Boards.js"></script>
-<script type="text/javascript" src="/js/Members.js"></script>
-<style>
-    .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px;
-    }
-
-    .header a.left {
-        font-size: 24px;
-    }
-
-    .header ul.right {
-        list-style-type: none;
-        margin: 0;
-        padding: 10px;
-    }
-
-    .header li {
-        display: inline-block;
-        margin-left: 15px;
-    }
-
-    .header a {
-        text-decoration: none;
-        color: black;
-    }
-
-    .nav ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 10px;
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .nav li {
-        display: inline-block;
-        margin-left: 15px;
-    }
-
-    .footer {
-        display: flex;
-        justify-content: space-between;
-        padding: 10px;
-    }
-
-    .footer p {
-        margin: 0;
-    }
-</style>
 </head>
 <body>
     <nav>

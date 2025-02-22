@@ -1,0 +1,204 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.header a.left {
+    font-size: 24px;
+}
+
+.header ul.right {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px;
+}
+
+.header li {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.header a {
+    text-decoration: none;
+    color: black;
+}
+
+.nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav li {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.footer p {
+    margin: 0;
+}
+
+.container {
+    width: 90%;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.boardsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.boardsTable th, .boardsTable td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.boardsTable th {
+    background-color: #f4f4f4;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.memberTable {
+    width: 100%;
+    margin: 20px 0;
+    border-spacing: 10px;
+}
+
+.memberTable td {
+    padding: 10px;
+}
+
+input[type="text"],
+input[type="password"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button, input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover,
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+#btnJoin, #btnDelete {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#btnJoin:hover, #btnDelete:hover {
+    background-color: #0056b3;
+}
+
+.button-group {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.button-group a {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.button-group a:hover {
+    background-color: #218838;
+}
+
+.board-detail {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.board-info {
+    font-size: 16px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.board-content {
+    font-size: 18px;
+    white-space: pre-wrap;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    width: 95%;
+    border-radius: 8px;
+}
+
+.info-item {
+    display: flex;
+    gap: 5px;
+}
+
+.button-group a {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 20px;
+    display: inline-block;
+}
+
+.button-group a:hover {
+    background-color: #45a049;
+}
+
+.button-group a:focus, .button-group a:hover {
+    outline: none;
+    background-color: #3e8e41;
+}

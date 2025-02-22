@@ -53,11 +53,15 @@ public class BoardsController {
     @GetMapping("/boards/detail/{id}")
     public String getDetail(@PathVariable Integer id, Model model){
         MembersDto loginUser = (MembersDto) httpSession.getAttribute("loginUser");
+
+        //boardService.viewCnt(id);
+
         if(loginUser == null) {
             model.addAttribute("detailDto", boardService.getDetail(id, 0));
         } else {
             model.addAttribute("detailDto", boardService.getDetail(id, loginUser.getId()));
         }
+
         return "/boards/detail";
     }
 
@@ -68,19 +72,25 @@ public class BoardsController {
         return "/boards/updateForm";
     }
 
-    @PostMapping("/boards/updateB/{id}")
+    @PostMapping("/boards/update/{id}")
     @ResponseBody
-    public Map<String, Object> updateB(@PathVariable Integer id, @RequestBody UpdateDto updateDto){
+    public Map<String, Object> update(@PathVariable Integer id, @RequestBody UpdateDto updateDto){
         System.out.println("B controller - update call id : " + id);
-        Map<String, Object> response = boardService.updateB(id, updateDto);
+        Map<String, Object> response = boardService.update(id, updateDto);
         return response;
     }
 
-    @PostMapping("/deleteB/{id}")
+    @PostMapping("/boards/delete/{id}")
     @ResponseBody
-    public Map<String, Object> deleteB(@PathVariable Integer id, HttpServletRequest request){
+    public Map<String, Object> delete(@PathVariable Integer id, HttpServletRequest request){
         System.out.println("B controller - delete call");
-        Map<String, Object> response = boardService.deleteB(id);
+        Map<String, Object> response = boardService.delete(id);
         return response;
     }
+
+//    public String viewCnt(Integer id){
+//
+//        boardService.viewCnt(id);
+//        return "";
+//    }
 }

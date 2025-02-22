@@ -28,4 +28,11 @@ public class BoardsDto {
         this.content = updateDto.getContent();
         this.category_id = updateDto.getCategory_id();
     }
+
+    public void viewCnt(){
+        if (this.view_cnt == null) {
+            this.view_cnt = 0;
+        }
+        this.view_cnt++;
+    }
 }

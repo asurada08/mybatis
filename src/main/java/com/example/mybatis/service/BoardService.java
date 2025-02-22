@@ -21,15 +21,23 @@ public class BoardService {
     public Map<String, Object> write(WriteDto writeDto){
         System.out.println("service - write call");
         Map<String, Object> response = new HashMap<>();
+        //  httpSession.getAttribute("loginUser"); -> 유저의 id값 ( Integer )
+        // MembersDto에 이걸 집어넣게 짯음
+        // 자바는 MembersDto 이거에 맞게 넣어야 하니까 일단 MembersDto를 띄움
+        // httpSession.getAttribute("loginUser") 값을 넣기 위해서 캐스팅 해야함 ( 자바는 타입이 다르면 안들어감 )
+        // Integer 값 넣으려고 MembersDto 라는걸 메모리에 집어넣고 숫자 하나 들고있음
 
-        MembersDto loginUser = (MembersDto) httpSession.getAttribute("loginUser");
+        // Integer loginUser = httpSession.getAttribute("loginUser");
+        // Integer loginUser = (Integer) httpSession.getAttribute("loginUser");
+
+        MembersDto loginUser = (MembersDto) httpSession.getAttribute("loginUser"); //login_id 값만 가져오게 수정
 
         if (loginUser == null) {
             response.put("code", 0);
             response.put("message", "게시글 작성 실패");
         }
 
-        boardsDao.insert(writeDto.toEntity(loginUser.getId()));
+        boardsDao.insert(writeDto.toEntity(loginUser.getId())); //try catch
         response.put("code", 1);
         response.put("message", "게시글 작성 성공");
 
@@ -56,7 +64,7 @@ public class BoardService {
         return boardsDtoUpdate;
     }
 
-    public Map<String, Object> updateB(Integer id, UpdateDto updateDto) {
+    public Map<String, Object> update(Integer id, UpdateDto updateDto) {
         System.out.println("B service - update call");
         MembersDto membersDto = (MembersDto) httpSession.getAttribute("loginUser");
         Map<String, Object> response = new HashMap<>();
@@ -68,15 +76,15 @@ public class BoardService {
             return response;
         }
 
-        boardsDtoUpdate.update(updateDto);
-        boardsDao.updateB(boardsDtoUpdate);
+        boardsDtoUpdate.update(updateDto); //try
+        boardsDao.update(boardsDtoUpdate);
 
         response.put("code", 1);
         response.put("data", boardsDtoUpdate);
         return response;
     }
 
-    public Map<String, Object> deleteB(Integer id) {
+    public Map<String, Object> delete(Integer id) {
         System.out.println("B service - delete call");
         Map<String, Object> response = new HashMap<>();
         BoardsDto boardsDtoDel = boardsDao.findById(id);
@@ -87,10 +95,18 @@ public class BoardService {
             return response;
         }
 
-        boardsDao.deleteB(id);
+        boardsDao.delete(id);
 
         response.put("code", 1);
         response.put("data", "회원탈퇴 성공");
         return response;
+    }
+
+    public void viewCnt(Integer id){
+        BoardsDto boardsDto = boardsDao.findById(id);
+        if(boardsDto != null) {
+            boardsDto.viewCnt();
+            boardsDao.save(boardsDto);
+        }
     }
 }

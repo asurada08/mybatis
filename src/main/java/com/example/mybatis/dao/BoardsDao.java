@@ -7,12 +7,14 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public interface BoardsDao {
     public void insert(BoardsDto boardsDto);
     public List<MainListDto> findAll();
     public BoardsDto findById(Integer id);
     public DetailDto findByBoardsId(@Param("boardsId") Integer boardsId, @Param("loginUserId") Integer loginUserId);
-    public void updateB(BoardsDto boardsDto);
-    public void deleteB(Integer id);
+    public void update(BoardsDto boardsDto);
+    public void delete(Integer id);
+    public void save(BoardsDto boardsDto);
 }
