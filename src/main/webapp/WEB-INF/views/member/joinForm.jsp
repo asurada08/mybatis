@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp"%>
 
-    <table>
+<div class="form-container">
+    <table class="memberTable">
         <tr>
             <td>아 이 디</td>
             <td>
@@ -33,5 +34,8 @@
             </td>
         </tr>
     </table>
+</div>
+
+<script type="text/javascript" src="/js/Members.js"></script>
 
 <%@ include file="../layout/footer.jsp"%>

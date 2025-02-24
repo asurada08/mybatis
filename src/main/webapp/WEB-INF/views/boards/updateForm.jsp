@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp"%>
-<div>
-    <div>
+
+<div class="container">
+    <div class="input-group">
         <input type="hidden" id="id" value="${boardsDtoUpdate.id}">
         <input type="hidden" id="members_id" value="${loginUser.id}">
         <select id="category_id" name="category_id" size="1">
@@ -15,9 +16,15 @@
         </select>
         <input type="text" id="title" value="${boardsDtoUpdate.title}">
     </div>
-    <div>
+    <div class="input-group">
         <textarea id="content" rows="8">${boardsDtoUpdate.content}</textarea>
     </div>
-    <button type="button" id="btnUpdateB">수정</button> <button type="button" id="btnDeleteB">삭제</button>
+    <div class="button-group">
+        <button type="button" id="btnUpdateB">수정</button>
+        <button type="button" id="btnDeleteB">삭제</button>
+    <div>
 </div>
+
+<script type="text/javascript" src="/js/Boards.js"></script>
+
 <%@ include file="../layout/footer.jsp"%>
