@@ -11,5 +11,4 @@ public class UpdateDto {
     private String title;
     private String content;
     private Integer category_id;
-
 }

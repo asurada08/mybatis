@@ -18,11 +18,10 @@
     <select id="findById" resultType="com.example.mybatis.dto.boards.BoardsDto">
         select * from boards where id = #{id}
     </select>
-    <update id="updateB">
+    <update id="update">
         update boards set title = #{title}, content = #{content}, category_id = #{category_id}, updated_at = now() where id = #{id} and del_yn = "N"
     </update>
-
-    <update id="deleteB">
+    <update id="delete">
         update boards set del_yn = "Y" where id = #{id}
     </update>
 </mapper>

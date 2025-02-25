@@ -1,4 +1,4 @@
-//let id = $("#id").val();
+let id = $("#id").val();
 
 $(document).ready(function(){
     $("#btnWrite").click(function(){
@@ -9,13 +9,16 @@ $(document).ready(function(){
 
 function write(){
     let data = {
-        member_id : $("#member_id"),
+        member_id : $("#member_id").val(),
         title : $("#title").val(),
         content : $("#content").val(),
         category_id : $("#category_id").val()
     }
 
-    $.ajax("/boards/write", {
+    console.log("title : ", $("#title").val());
+    console.log("category_id : ", $("#category_id").val());
+
+    $.ajax("/boards/write" , {
             type:"post",
             data:JSON.stringify(data),
             dataType:"json",
@@ -23,6 +26,7 @@ function write(){
                         "Content-Type": "application/json; charset=utf-8"
             }
         }).done((res) => {
+            console.log(res);
             if (res.code == 1) {
                 alert("작성 완료");
                 window.location.href = "http://localhost:8080/home";
@@ -35,11 +39,11 @@ function write(){
 $(document).ready(function(){
     $("#btnUpdateB").click(function(){
         console.log("B Update clicked");
-        updateB();
+        update();
     });
 });
 
-function updateB(){
+function update(){
     let id = $("#id").val();
     console.log(id);
 
@@ -55,7 +59,7 @@ function updateB(){
         category_id : $("#category_id").val()
     }
 
-    $.ajax("/boards/updateB/" + id , {
+    $.ajax("/boards/update/" + id , {
             type:"post",
             data:JSON.stringify(data),
             dataType:"json",
@@ -76,18 +80,18 @@ function updateB(){
 $(document).ready(function(){
     $("#btnDeleteB").click(function(){
         console.log("B delete clicked")
-        cancelB();
+        cancel();
     });
 });
 
-function cancelB(){
+function cancel(){
     let id = $("#id").val();
 
     let data = {
         del_yn : "Y"
     }
 
-    $.ajax("/deleteB/" + id , {
+    $.ajax("/delete/" + id , {
         type:"post",
         data:JSON.stringify(data),
         dataType:"json",

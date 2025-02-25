@@ -12,6 +12,7 @@
             <option value="4">영화관련</option>
             <option value="5">자유게시판</option>
             <option value="6">Q & A</option>
+        </select>
         <input type="text" id="title">
     </div>
     <div class="input-group">

@@ -56,7 +56,7 @@ public class BoardService {
         return boardsDtoUpdate;
     }
 
-    public Map<String, Object> updateB(Integer id, UpdateDto updateDto) {
+    public Map<String, Object> update(Integer id, UpdateDto updateDto) {
         System.out.println("B service - update call");
         MembersDto membersDto = (MembersDto) httpSession.getAttribute("loginUser");
         Map<String, Object> response = new HashMap<>();
@@ -69,14 +69,14 @@ public class BoardService {
         }
 
         boardsDtoUpdate.update(updateDto);
-        boardsDao.updateB(boardsDtoUpdate);
+        boardsDao.update(boardsDtoUpdate);
 
         response.put("code", 1);
         response.put("data", boardsDtoUpdate);
         return response;
     }
 
-    public Map<String, Object> deleteB(Integer id) {
+    public Map<String, Object> delete(Integer id) {
         System.out.println("B service - delete call");
         Map<String, Object> response = new HashMap<>();
         BoardsDto boardsDtoDel = boardsDao.findById(id);
@@ -87,7 +87,7 @@ public class BoardService {
             return response;
         }
 
-        boardsDao.deleteB(id);
+        boardsDao.delete(id);
 
         response.put("code", 1);
         response.put("data", "회원탈퇴 성공");

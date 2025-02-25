@@ -68,19 +68,19 @@ public class BoardsController {
         return "/boards/updateForm";
     }
 
-    @PostMapping("/boards/updateB/{id}")
+    @PostMapping("/boards/update/{id}")
     @ResponseBody
-    public Map<String, Object> updateB(@PathVariable Integer id, @RequestBody UpdateDto updateDto){
+    public Map<String, Object> update(@PathVariable Integer id, @RequestBody UpdateDto updateDto){
         System.out.println("B controller - update call id : " + id);
-        Map<String, Object> response = boardService.updateB(id, updateDto);
+        Map<String, Object> response = boardService.update(id, updateDto);
         return response;
     }
 
-    @PostMapping("/deleteB/{id}")
+    @PostMapping("/boards/delete/{id}")
     @ResponseBody
-    public Map<String, Object> deleteB(@PathVariable Integer id, HttpServletRequest request){
+    public Map<String, Object> delete(@PathVariable Integer id, HttpServletRequest request){
         System.out.println("B controller - delete call");
-        Map<String, Object> response = boardService.deleteB(id);
+        Map<String, Object> response = boardService.delete(id);
         return response;
     }
 }
