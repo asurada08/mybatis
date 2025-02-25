@@ -92,10 +92,6 @@ public class MemberController {
         System.out.println("controller - update call");
         Map<String, Object> response = memberService.update(id, updateDto);
 
-//        if (response.get("code").equals(1)) {
-//            MembersDto membersDtoUpdate = (MembersDto) response.get("data");
-//            httpSession.setAttribute("loginUser", membersDtoUpdate);
-//        }
         return response;
     }
 
@@ -105,9 +101,10 @@ public class MemberController {
         System.out.println("controller - delete call");
         Map<String, Object> response = memberService.delete(id);
 
-        HttpSession session = request.getSession(false); // 현재 세션을 가져옵니다.
+        HttpSession session = request.getSession(false);
+
         if (session != null) {
-            session.invalidate(); // 세션을 무효화하여 로그아웃 처리
+            session.invalidate();
         }
 
         return response;

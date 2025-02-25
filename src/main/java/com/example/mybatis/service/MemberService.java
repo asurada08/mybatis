@@ -18,6 +18,35 @@ public class MemberService {
 
     private final MembersDao membersDao;
 
+    public Map<String, Object> login(LoginDto loginDto) {
+        System.out.println("service - login call");
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            MembersDto membersDtoLogin = membersDao.login(loginDto.getLogin_id(), loginDto.getPassword());
+
+            if (membersDtoLogin == null) {
+                response.put("status", "fail");
+                response.put("message", "아이디 또는 비밀번호를 확인해주세요");
+                return response;
+            }
+
+            response.put("status", "success");
+            response.put("loginUser", membersDtoLogin);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("status", "fail");
+            response.put("message", "로그인 중 오류 발생");
+        }
+
+        return response;
+    }
+
+    public int idCheck(MembersDto membersDto) throws Exception{
+        int result = membersDao.idCheck(membersDto);
+        return result;
+    }
+
     public Map<String, Object> join(JoinDto joinDto){
 
         System.out.println("service - join call");
@@ -43,88 +72,66 @@ public class MemberService {
         return response;
     }
 
-    public int idCheck(MembersDto membersDto) throws Exception{
-        int result = membersDao.idCheck(membersDto);
-        return result;
-    }
-
-    public Map<String, Object> login(LoginDto loginDto) {
-        System.out.println("service - login call");
-        Map<String, Object> response = new HashMap<>();
-
-//        if (loginDto.getLogin_id() == null || loginDto.getLogin_id().isBlank()) {
-//            response.put("status", "fail");
-//            response.put("message", "아이디를 입력해주세요");
-//            return response;
-//        }
-//        if (loginDto.getPassword() == null || loginDto.getPassword().isBlank()) {
-//            response.put("status", "fail");
-//            response.put("message", "비밀번호를 입력해주세요");
-//            return response;
-//        }
-
-        MembersDto membersDtoLogin = membersDao.login(loginDto.getLogin_id(), loginDto.getPassword());
-
-//        if (membersDtoLogin == null) {
-//            response.put("status", "fail");
-//            response.put("message", "아이디를 확인해주세요");
-//            return response;
-//        }
-//
-//        if (!(membersDtoLogin.getPassword().equals(loginDto.getPassword()))) {
-//            response.put("status", "fail");
-//            response.put("message", "비밀번호를 확인해주세요");
-//            return response;
-//        }
-        if (membersDtoLogin == null) {
-            response.put("status", "fail");
-            response.put("message", "아이디, 비밀번호를 확인해주세요");
-            return response;
-        }
-
-        response.put("status", "success");
-        response.put("loginUser", membersDtoLogin);
-        return response;
-    }
-
     public MembersDto updateForm(Integer id){
-        MembersDto membersDtoUpdate = membersDao.findById(id);
-        return membersDtoUpdate;
+        try {
+            MembersDto membersDtoUpdate = membersDao.findById(id);
+
+            if (membersDtoUpdate == null) {
+                return null;
+            }
+
+            return membersDtoUpdate;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public Map<String, Object> update(Integer id, UpdateDto updateDto){
         System.out.println("service - update call");
         Map<String, Object> response = new HashMap<>();
-        MembersDto membersDtoUpdate = membersDao.findById(id);
+        try {
+            MembersDto membersDtoUpdate = membersDao.findById(id);
 
-        if (membersDtoUpdate == null) {
+            if (membersDtoUpdate == null) {
+                response.put("code", 0);
+                return response;
+            }
+
+            membersDtoUpdate.update(updateDto);
+            membersDao.update(membersDtoUpdate);
+
+            response.put("code", 1);
+            response.put("data", membersDtoUpdate);
+        } catch (Exception e) {
+            e.printStackTrace();
             response.put("code", 0);
-            return response;
         }
-
-        membersDtoUpdate.update(updateDto);
-        membersDao.update(membersDtoUpdate);
-
-        response.put("code", 1);
-        response.put("data", membersDtoUpdate);
         return response;
     }
 
     public Map<String, Object> delete(Integer id) {
         System.out.println("service - delete call");
         Map<String, Object> response = new HashMap<>();
-        MembersDto membersDtoDel = membersDao.findById(id);
+        try {
+            MembersDto membersDtoDel = membersDao.findById(id);
 
-        if (membersDtoDel == null) {
+            if (membersDtoDel == null) {
+                response.put("code", 0);
+                response.put("message", "존재하지 않는 회원입니다");
+                return response;
+            }
+
+            membersDao.delete(id);
+
+            response.put("code", 1);
+            response.put("data", "회원탈퇴 성공");
+        } catch (Exception e) {
+            e.printStackTrace();
             response.put("code", 0);
-            response.put("message", "회원탈퇴 실패");
-            return response;
+            response.put("message", "회원탈퇴 중 오류 발생");
         }
 
-        membersDao.delete(id);
-
-        response.put("code", 1);
-        response.put("data", "회원탈퇴 성공");
         return response;
     }
 

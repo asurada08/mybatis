@@ -91,7 +91,7 @@ function cancel(){
         del_yn : "Y"
     }
 
-    $.ajax("/delete/" + id , {
+    $.ajax("/boards/delete/" + id , {
         type:"post",
         data:JSON.stringify(data),
         dataType:"json",
