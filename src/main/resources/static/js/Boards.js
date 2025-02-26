@@ -118,7 +118,7 @@ function viewCnt(id) {
         url: '/boards/viewCnt/' + id,
         type: 'GET',
         success: function(response) {
-            console.log("조회수가 증가했습니다.");
+            console.log("조회수 증가");
             window.location.href = "/boards/detail/" + id;
         },
         error: function(xhr, status, error) {
