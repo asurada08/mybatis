@@ -131,4 +131,12 @@ public class BoardService {
 
         return response;
     }
+
+    public void viewCnt(Integer id){
+        try {
+            boardsDao.viewCnt(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

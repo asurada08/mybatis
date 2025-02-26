@@ -16,7 +16,7 @@
             <c:forEach var="boards" items="${boardsList}">
                 <tr>
                     <th>${boards.id}</th>
-                    <td><a href="/boards/detail/${boards.id}" onclick="viewCnt">${boards.title}</a></td>
+                    <td><a href="javascript:void(0);" onclick="viewCnt(${boards.id})" class="title">${boards.title}</a></td>
                     <td>${boards.nickname}</td>
                     <td>${boards.created_at}</td>
                     <td>${boards.view_cnt}</td>
@@ -28,5 +28,7 @@
         검색기능 부분
     </div>
 </div>
+
+<script type="text/javascript" src="/js/Boards.js"></script>
 
 <%@ include file="../layout/footer.jsp"%>

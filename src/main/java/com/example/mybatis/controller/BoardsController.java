@@ -10,6 +10,8 @@ import com.example.mybatis.service.BoardService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -78,9 +80,16 @@ public class BoardsController {
 
     @PostMapping("/boards/delete/{id}")
     @ResponseBody
-    public Map<String, Object> delete(@PathVariable Integer id, HttpServletRequest request){
+    public Map<String, Object> delete(@PathVariable Integer id, HttpServletRequest request) {
         System.out.println("B controller - delete call");
         Map<String, Object> response = boardService.delete(id);
         return response;
     }
+
+    @GetMapping("/boards/viewCnt/{id}")
+    @ResponseBody
+    public void viewCnt(@PathVariable Integer id) {
+        boardService.viewCnt(id);
+    }
+
 }

@@ -8,11 +8,16 @@ $(document).ready(function(){
 });
 
 function write(){
+    let member_id = $("#member_id").val();
+    let title = $("#title").val();
+    let content = $("#content").val();
+    let category_id = $("#category_id").val();
+
     let data = {
-        member_id : $("#member_id").val(),
-        title : $("#title").val(),
-        content : $("#content").val(),
-        category_id : $("#category_id").val()
+        member_id : member_id,
+        title : title,
+        content : content,
+        category_id : category_id
     }
 
     console.log("title : ", $("#title").val());
@@ -104,6 +109,20 @@ function cancel(){
             window.location.href = "http://localhost:8080/home";
         } else {
             alert("입력 오류");
+        }
+    });
+}
+
+function viewCnt(id) {
+    $.ajax({
+        url: '/boards/viewCnt/' + id,
+        type: 'GET',
+        success: function(response) {
+            console.log("조회수가 증가했습니다.");
+            window.location.href = "/boards/detail/" + id;
+        },
+        error: function(xhr, status, error) {
+            console.error("조회수 증가 실패: ", error);
         }
     });
 }
