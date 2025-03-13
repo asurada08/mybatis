@@ -2,16 +2,18 @@ package com.example.mybatis.controller;
 
 import com.example.mybatis.dao.BoardsDao;
 import com.example.mybatis.dto.boards.BoardsDto;
-import com.example.mybatis.dto.boards.DetailDto;
 import com.example.mybatis.dto.boards.UpdateDto;
 import com.example.mybatis.dto.boards.WriteDto;
+import com.example.mybatis.dto.comments.CommentsDto;
+import com.example.mybatis.dto.comments.CommentsListDto;
+import com.example.mybatis.dto.comments.CommentsUpdateDto;
+import com.example.mybatis.dto.comments.CommentsWriteDto;
 import com.example.mybatis.dto.members.MembersDto;
 import com.example.mybatis.service.BoardService;
+import com.example.mybatis.service.CommentsService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,7 @@ import java.util.Map;
 public class BoardsController {
     private final BoardsDao boardsDao;
     private final BoardService boardService;
+    private final CommentsService commentsService;
     private final HttpSession httpSession;
 
     @GetMapping({"/", "/home"})
@@ -60,6 +63,10 @@ public class BoardsController {
         } else {
             model.addAttribute("detailDto", boardService.getDetail(id, loginUser.getId()));
         }
+
+        List<CommentsListDto> commentsList = commentsService.getComments(id);
+        model.addAttribute("comments", commentsList);
+
         return "/boards/detail";
     }
 
@@ -92,4 +99,40 @@ public class BoardsController {
         boardService.viewCnt(id);
     }
 
+    @PostMapping("/boards/writeComment")
+    @ResponseBody
+    public Map<String, Object> writeComments(@RequestBody CommentsWriteDto commentsWriteDto) {
+        System.out.println("controller - write call");
+        Map<String, Object> response = commentsService.writeComments(commentsWriteDto);
+        System.out.println(commentsWriteDto);
+        System.out.println(response);
+        return response;
+    }
+
+    @PostMapping("/boards/writeReply")
+    @ResponseBody
+    public Map<String, Object> writeReply(@RequestBody CommentsWriteDto commentsWriteDto) {
+        System.out.println("controller - write call");
+        Map<String, Object> response = commentsService.writeReply(commentsWriteDto);
+        System.out.println(response);
+        return response;
+    }
+
+    @PostMapping("/boards/updateComments/{id}")
+    @ResponseBody
+    public Map<String, Object> updateComments(@PathVariable Integer id, @RequestBody CommentsUpdateDto commentsUpdateDto){
+        System.out.println("controller - updateComments call");
+        System.out.println("Received ID: " + id);
+        System.out.println("Received comment content: " + commentsUpdateDto.getContent());
+        Map<String, Object> response = commentsService.updateComments(id, commentsUpdateDto);
+        return response;
+    }
+
+    @PostMapping("/boards/deleteComments")
+    @ResponseBody
+    public Map<String, Object> deleteComments(@PathVariable Integer id, HttpServletRequest request) {
+        System.out.println("controller - deleteComments call");
+        Map<String, Object> response = commentsService.deleteComments(id);
+        return response;
+    }
 }

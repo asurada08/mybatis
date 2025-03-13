@@ -27,7 +27,7 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
 	// mariaDB
-	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+	implementation 'org.mariadb.jdbc:mariadb-java-client'
 
 	// 톰켓
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'

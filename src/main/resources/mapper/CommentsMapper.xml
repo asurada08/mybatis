@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatis.dao.CommentsDao">
+    <select id="findByBoardsId" resultType="com.example.mybatis.dto.comments.CommentsListDto">
+        select c.*, m.nickname from comments c join members m on c.members_id = m.id where c.boards_id = #{boards_id} order by case when c.reparent = 0 then c.id else c.reparent end;
+    </select>
+
+    <insert id="insert" parameterType="com.example.mybatis.dto.comments.CommentsDto">
+        insert into comments (content, members_id, boards_id, created_at, reparent)
+        values (#{content}, #{members_id}, #{boards_id}, now(), #{reparent});
+    </insert>
+
+    <select id="findById" resultType="com.example.mybatis.dto.comments.CommentsDto">
+        select * from comments where id = #{id}
+    </select>
+
+    <update id="update">
+        update comments set content = #{content}, updated_at = now() where id = #{id} and del_yn = "N"
+    </update>
+
+    <update id="delete">
+        update comments set del_yn = "Y" where id = #{id}
+    </update>
+</mapper>
