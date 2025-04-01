@@ -5,10 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class MembersDto {
     private Integer id;
     private String login_id;
@@ -29,3 +29,5 @@ public class MembersDto {
         this.nickname = updateDto.getNickname();
     }
 }
+
+

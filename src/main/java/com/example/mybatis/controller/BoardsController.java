@@ -2,14 +2,13 @@ package com.example.mybatis.controller;
 
 import com.example.mybatis.dao.BoardsDao;
 import com.example.mybatis.dto.boards.BoardsDto;
+import com.example.mybatis.dto.boards.PagingDto;
 import com.example.mybatis.dto.boards.UpdateDto;
 import com.example.mybatis.dto.boards.WriteDto;
-import com.example.mybatis.dto.comments.CommentsDto;
 import com.example.mybatis.dto.comments.CommentsListDto;
 import com.example.mybatis.dto.comments.CommentsUpdateDto;
 import com.example.mybatis.dto.comments.CommentsWriteDto;
-import com.example.mybatis.dto.members.MembersDto;
-import com.example.mybatis.service.BoardService;
+import com.example.mybatis.service.BoardsService;
 import com.example.mybatis.service.CommentsService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -24,25 +23,32 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Controller
 public class BoardsController {
+    private final BoardsService boardsService;
     private final BoardsDao boardsDao;
-    private final BoardService boardService;
     private final CommentsService commentsService;
     private final HttpSession httpSession;
 
     @GetMapping({"/", "/home"})
-    public String board(HttpSession session, Model model) {
-        MembersDto loginUser = (MembersDto) session.getAttribute("loginUser");
+    public String boardsList(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "") String keyword, @RequestParam(defaultValue = "title") String searchType,
+                             @RequestParam(defaultValue = "") Integer categoryId, HttpSession httpsession, Model model) {
+
+        Integer loginUser = (Integer) httpsession.getAttribute("loginUser");
+//        Integer loginUser = boardsService.getLoginUserId(); //컨트롤러에서 처리하지 않고 서비스에서 처리를 하고 컨트롤러는 가져다 쓰는방법
         if (loginUser != null) {
             model.addAttribute("loginUser", loginUser);
         }
-        System.out.println("controller - list call");
-        model.addAttribute("boardsList", boardService.boardsList());
+
+        PagingDto pagingDto = boardsService.boardsList(page, keyword, searchType, categoryId);
+
+        model.addAttribute("paging", pagingDto);  // 페이징 정보
+        model.addAttribute("boardsList", pagingDto.getMainListDtos());  // 게시글 목록
+
         return "boards/home";
     }
 
     @GetMapping("/boards/writeForm")
     public String writeForm() {
-        MembersDto loginUser = (MembersDto) httpSession.getAttribute("loginUser");
+        Integer loginUser = (Integer) httpSession.getAttribute("loginUser");
         return "/boards/writeForm";
     }
 
@@ -50,18 +56,18 @@ public class BoardsController {
     @ResponseBody
     public Map<String, Object> write(@RequestBody WriteDto writeDto) {
         System.out.println("controller - write call");
-        Map<String, Object> response = boardService.write(writeDto);
+        Map<String, Object> response = boardsService.write(writeDto);
         System.out.println(response);
         return response;
     }
 
     @GetMapping("/boards/detail/{id}")
     public String getDetail(@PathVariable Integer id, Model model){
-        MembersDto loginUser = (MembersDto) httpSession.getAttribute("loginUser");
+        Integer loginUser = (Integer) httpSession.getAttribute("loginUser");
         if(loginUser == null) {
-            model.addAttribute("detailDto", boardService.getDetail(id, 0));
+            model.addAttribute("detailDto", boardsService.getDetail(id, 0));
         } else {
-            model.addAttribute("detailDto", boardService.getDetail(id, loginUser.getId()));
+            model.addAttribute("detailDto", boardsService.getDetail(id, loginUser));
         }
 
         List<CommentsListDto> commentsList = commentsService.getComments(id);
@@ -72,7 +78,7 @@ public class BoardsController {
 
     @GetMapping("/boards/updateForm/{id}")
     public String updateForm(@PathVariable Integer id, Model model){
-        BoardsDto boardsDtoUpdate = boardService.updateForm(id);
+        BoardsDto boardsDtoUpdate = boardsService.updateForm(id);
         model.addAttribute("boardsDtoUpdate", boardsDtoUpdate);
         return "/boards/updateForm";
     }
@@ -81,7 +87,7 @@ public class BoardsController {
     @ResponseBody
     public Map<String, Object> update(@PathVariable Integer id, @RequestBody UpdateDto updateDto){
         System.out.println("B controller - update call id : " + id);
-        Map<String, Object> response = boardService.update(id, updateDto);
+        Map<String, Object> response = boardsService.update(id, updateDto);
         return response;
     }
 
@@ -89,14 +95,14 @@ public class BoardsController {
     @ResponseBody
     public Map<String, Object> delete(@PathVariable Integer id, HttpServletRequest request) {
         System.out.println("B controller - delete call");
-        Map<String, Object> response = boardService.delete(id);
+        Map<String, Object> response = boardsService.delete(id);
         return response;
     }
 
     @GetMapping("/boards/viewCnt/{id}")
     @ResponseBody
     public void viewCnt(@PathVariable Integer id) {
-        boardService.viewCnt(id);
+        boardsService.viewCnt(id);
     }
 
     @PostMapping("/boards/writeComment")

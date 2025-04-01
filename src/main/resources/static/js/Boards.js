@@ -126,3 +126,19 @@ function viewCnt(id) {
         }
     });
 }
+
+document.getElementById('searchBtn').onclick = function() {
+    let searchType = document.getElementById('searchType').value;
+    let keyword = document.getElementById('keyword').value;
+    let currentUrl = window.location.pathname;
+
+    window.location.href = `${currentUrl}?page=1&searchType=${searchType}&keyword=${keyword}`;
+};
+
+function goToPage(pageNumber) {
+    let searchType = document.getElementById('searchType').value;
+    let keyword = document.getElementById('keyword').value;
+    let currentUrl = window.location.pathname;
+
+    window.location.href = `${currentUrl}?page=${pageNumber}&searchType=${searchType}&keyword=${keyword}`;
+}

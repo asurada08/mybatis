@@ -1,38 +1,46 @@
 package com.example.mybatis.service;
 
-import com.example.mybatis.dto.members.LoginDto;
-import com.example.mybatis.dto.members.UpdateDto;
-import com.example.mybatis.dto.members.JoinDto;
-import com.example.mybatis.dto.members.MembersDto;
 import com.example.mybatis.dao.MembersDao;
-
-import org.springframework.stereotype.Service;
+import com.example.mybatis.dto.members.JoinDto;
+import com.example.mybatis.dto.members.LoginDto;
+import com.example.mybatis.dto.members.MembersDto;
+import com.example.mybatis.dto.members.UpdateDto;
+import com.example.mybatis.dto.response.members.LoginRespDto;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
-public class MemberService {
+public class MembersService {
 
     private final MembersDao membersDao;
+
 
     public Map<String, Object> login(LoginDto loginDto) {
         System.out.println("service - login call");
         Map<String, Object> response = new HashMap<>();
-
         try {
-            MembersDto membersDtoLogin = membersDao.login(loginDto.getLogin_id(), loginDto.getPassword());
+//            Integer loginUser = membersDao.login(loginDto.getLogin_id(), loginDto.getPassword());
+//            String nickname = membersDao.findNicknameById(loginUser);
+//            불필요한거 줄이자
 
-            if (membersDtoLogin == null) {
+            LoginRespDto loginUser = membersDao.login2(loginDto);
+
+            if (loginUser == null) {
                 response.put("status", "fail");
                 response.put("message", "아이디 또는 비밀번호를 확인해주세요");
                 return response;
             }
-
+            System.out.println(loginUser.getId());
+            System.out.println(loginUser.getNickname());
             response.put("status", "success");
-            response.put("loginUser", membersDtoLogin);
+            response.put("loginUser", loginUser.getId());
+            response.put("nickname", loginUser.getNickname());
         } catch (Exception e) {
             e.printStackTrace();
             response.put("status", "fail");
@@ -74,6 +82,10 @@ public class MemberService {
 
     public MembersDto updateForm(Integer id){
         try {
+
+            // 내꺼만 수정가능하게
+            // findById = 1 잇음 findById =2 잇슴
+            // 내가 누군지는 알빠없고 db에 있으면 보여줌
             MembersDto membersDtoUpdate = membersDao.findById(id);
 
             if (membersDtoUpdate == null) {
@@ -134,5 +146,4 @@ public class MemberService {
 
         return response;
     }
-
 }

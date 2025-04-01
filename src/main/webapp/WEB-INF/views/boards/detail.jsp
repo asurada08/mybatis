@@ -15,7 +15,7 @@
                 ${detailDto.content}
             </div>
         </div>
-        <c:if test="${loginUser.id == detailDto.members_id}">
+        <c:if test="${loginUser == detailDto.members_id}">
             <div class="button-group"><a href="/boards/updateForm/${detailDto.id}">수정</a></div>
         </c:if>
     </div>
@@ -28,7 +28,7 @@
                 <p><strong>작성일:</strong> ${comment.created_at}</p>
                 <p><strong>댓글:</strong> <span class="comment-content" id="comment-content-${comment.id}">${comment.content}</span></p>
 
-                <c:if test="${loginUser.id == comment.members_id}">
+                <c:if test="${loginUser == comment.members_id}">
                     <div><a href="javascript:void(0);" class="updateBtn" id="updateBtn-${comment.id}">수정</a></div>
                     <div><a href="javascript:void(0);" class="deleteBtn" id="deleteBtn-${comment.id}">삭제</a></div>
                 </c:if>
@@ -38,7 +38,7 @@
                 <!-- 답글 작성 폼 (기본적으로 숨겨짐) -->
                 <div class="reply-form-${comment.id}" style="display: none;">
                     <input type="hidden" id="reply-boards_id-${comment.id}" name="boards_id" value="${detailDto.id}">
-                    <input type="hidden" id="reply-members_id-${comment.id}" name="members_id" value="${loginUser.id}">
+                    <input type="hidden" id="reply-members_id-${comment.id}" name="members_id" value="${loginUser}">
                     <input type="hidden" id="reply-reparent-${comment.id}" name="reparent" value="${comment.id}">
                     <textarea id="reply-content-${comment.id}" rows="4" cols="50" placeholder="답글을 작성해주세요."></textarea>
                     <button class="replyWriteBtn" id="replyWriteBtn-${comment.id}">답글 작성</button>
@@ -61,7 +61,7 @@
                         <p><strong>작성자:</strong> ${replyComment.nickname}</p>
                         <p><strong>작성일:</strong> ${replyComment.created_at}</p>
                         <p><strong>댓글:</strong><span class="comment-content" id="comment-content-${replyComment.id}">${replyComment.content}</span></p>
-                        <c:if test="${loginUser.id == replyComment.members_id}">
+                        <c:if test="${loginUser == replyComment.members_id}">
                            <div><a href="javascript:void(0);" class="updateBtn" id="updateBtn-${replyComment.id}">수정</a></div>
                            <div><a href="javascript:void(0);" class="deleteBtn" id="deleteBtn-${replyComment.id}">삭제</a></div>
                         </c:if>
@@ -81,12 +81,11 @@
     <!-- 댓글 작성 텍스트영역 -->
     <div class="comment-form">
         <input type="hidden" id="boards_id" name="boards_id" value="${detailDto.id}"></input>
-        <input type="hidden" id="members_id" name="members_id" value="${loginUser.id}"></input>
+        <input type="hidden" id="members_id" name="members_id" value="${loginUser}"></input>
         <input type="hidden" id="reparent" name="reparent" value="0"></input>
         <textarea id="content" rows="4" cols="50" placeholder="댓글을 작성해주세요."></textarea>
         <button id="commentBtn">댓글 작성</button>
     </div>
-
 
 </div>
 

@@ -1,3 +1,17 @@
+/* 공통 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+/* Header */
 .header {
     display: flex;
     justify-content: space-between;
@@ -25,12 +39,13 @@
     color: black;
 }
 
+/* Navigation */
 .nav ul {
     list-style-type: none;
     margin: 0;
     padding: 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .nav li {
@@ -38,9 +53,10 @@
     margin-left: 15px;
 }
 
+/* Footer */
 .footer {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     padding: 10px;
 }
 
@@ -48,12 +64,14 @@
     margin: 0;
 }
 
+/* Container */
 .container {
     width: 90%;
     margin: 20px auto;
     padding: 20px;
 }
 
+/* Board Table */
 .boardsTable {
     width: 100%;
     border-collapse: collapse;
@@ -70,6 +88,7 @@
     background-color: #f4f4f4;
 }
 
+/* Form Container */
 .form-container {
     width: 100%;
     max-width: 600px;
@@ -80,6 +99,7 @@
     background-color: #f9f9f9;
 }
 
+/* Member Table */
 .memberTable {
     width: 100%;
     margin: 20px 0;
@@ -90,6 +110,7 @@
     padding: 10px;
 }
 
+/* Input fields */
 input[type="text"],
 input[type="password"],
 textarea,
@@ -106,8 +127,9 @@ textarea {
     resize: vertical;
 }
 
-button, input[type="submit"] {
-    padding: 10px 20px;
+/* Buttons */
+button, input[type="submit"], .button-group a {
+    padding: 8px 15px;
     background-color: #007BFF;
     color: white;
     border: none;
@@ -116,41 +138,102 @@ button, input[type="submit"] {
 }
 
 button:hover,
-input[type="submit"]:hover {
+input[type="submit"]:hover,
+.button-group a:hover {
     background-color: #0056b3;
 }
 
-#btnJoin, #btnDelete {
-    padding: 10px 20px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#btnJoin:hover, #btnDelete:hover {
-    background-color: #0056b3;
-}
-
+/* Button Group */
 .button-group {
     display: flex;
     justify-content: flex-start;
     gap: 10px;
 }
 
-.button-group a {
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: white;
+/* Search Section */
+.search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    max-width: 800px; /* 화면 절반 이상 넘어가지 않도록 제한 */
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search select,
+.search input {
+    padding: 10px;
     border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-right: 10px;
+    box-sizing: border-box;
+}
+
+/* select의 길이 줄이기 */
+.search select {
+    flex: 1;
+    max-width: 150px; /* select의 최대 너비를 적당히 설정 */
+}
+
+/* input 길이 늘리기 */
+.search input[type="text"] {
+    flex: 3;
+    max-width: 300px; /* 적당한 너비 */
+}
+
+/* 버튼 */
+.search button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    flex-shrink: 0; /* 버튼은 크기가 줄어들지 않도록 */
+}
+
+.search button:hover {
+    background-color: #0056b3;
+}
+
+/* Paging */
+.paging {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination {
+    display: inline-block;
+    list-style-type: none;
+    padding: 0;
+}
+
+.page-item {
+    display: inline;
+    margin: 0 5px;
+}
+
+.page-link {
+    padding: 10px 15px;
     text-decoration: none;
+    background-color: #f4f4f4;
+    color: #007BFF;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
-.button-group a:hover {
-    background-color: #218838;
+.page-item.disabled .page-link {
+    color: #ccc;
 }
 
+.page-link:hover {
+    background-color: #007BFF;
+    color: white;
+}
+
+/* Board Detail */
 .board-detail {
     margin: 20px 0;
     padding: 15px;
@@ -183,23 +266,19 @@ input[type="submit"]:hover {
     gap: 5px;
 }
 
-.button-group a {
-    padding: 10px 15px;
-    background-color: #4CAF50;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    text-align: center;
+/* Comment Section */
+.comment-form {
     margin-top: 20px;
-    display: inline-block;
 }
 
-.button-group a:hover {
-    background-color: #45a049;
+.comment-form textarea {
+    width: 100%;
 }
 
-.button-group a:focus, .button-group a:hover {
-    outline: none;
-    background-color: #3e8e41;
+.reply-form {
+    margin-top: 10px;
 }
 
+.reply-comment {
+    margin-left: 20px;
+}

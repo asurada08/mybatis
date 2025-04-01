@@ -20,8 +20,8 @@
                     </c:when>
                     <c:otherwise>
                         <li><a href="/boards/writeForm">글쓰기</a></li>
-                        <li>${loginUser.nickname}님 반갑습니다</li>
-                        <li><a href="/updateForm/${loginUser.id}">회원정보수정</li>
+                        <li>${sessionScope.nickname}님 반갑습니다</li>
+                        <li><a href="/updateForm/${sessionScope.loginUser}">회원정보수정</li>
                         <li><a href="/logout">로그아웃</a></li>
                     </c:otherwise>
                 </c:choose>
@@ -29,12 +29,12 @@
         </div>
         <div class="nav">
             <ul>
-                <li>공지사항</li>
-                <li>음식관련</li>
-                <li>게임관련</li>
-                <li>영화관련</li>
-                <li>자유게시판</li>
-                <li>Q & A</li>
+                <li><a href="/home?categoryId=1">공지사항</a></li>
+                <li><a href="/home?categoryId=2">음식관련</a></li>
+                <li><a href="/home?categoryId=3">게임관련</a></li>
+                <li><a href="/home?categoryId=4">영화관련</a></li>
+                <li><a href="/home?categoryId=5">자유게시판</a></li>
+                <li><a href="/home?categoryId=6">Q & A</a></li>
             </ul>
         </div>
     </nav>

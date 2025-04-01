@@ -1,11 +1,8 @@
 package com.example.mybatis.dto.boards;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.bind.annotation.PostMapping;
 
-@AllArgsConstructor
 @Getter
 @Setter
 public class DetailDto {

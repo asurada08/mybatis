@@ -3,7 +3,7 @@
 
 <div class="container">
     <div class="input-group">
-        <input type="hidden" id="members_id" value="${loginUser.id}">
+        <input type="hidden" id="members_id" value="${loginUser}">
         <select id="category_id" name="category_id" size="1">
             <option value="">게시판을 선택해 주세요</option>
             <option value="1">공지사항</option>

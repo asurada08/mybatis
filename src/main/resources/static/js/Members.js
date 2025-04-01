@@ -163,6 +163,9 @@ function update(){
         nickname : nickname
     }
 
+    console.log(`id :: ${id}`);
+    console.log(`id :: ${id}`);
+
     $.ajax("/update/" + id , {
         type:"post",
         data:JSON.stringify(data),

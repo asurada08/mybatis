@@ -1,10 +1,11 @@
 package com.example.mybatis.controller;
 
+import com.example.mybatis.dao.MembersDao;
 import com.example.mybatis.dto.members.JoinDto;
 import com.example.mybatis.dto.members.LoginDto;
 import com.example.mybatis.dto.members.MembersDto;
 import com.example.mybatis.dto.members.UpdateDto;
-import com.example.mybatis.service.MemberService;
+import com.example.mybatis.service.MembersService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +17,9 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
-public class MemberController {
-    private final MemberService memberService;
-    private final HttpSession httpSession;
+public class MembersController {
+
+    private final MembersService membersService;
 
     @GetMapping("/loginForm")
     public String loginForm(){
@@ -31,12 +32,14 @@ public class MemberController {
         System.out.println("controller - login call");
         System.out.println(loginDto.getLogin_id());
 
-        Map<String, Object> response = memberService.login(loginDto);
+        Map<String, Object> response = membersService.login(loginDto);
 
         if (response != null && response.containsKey("status") && response.get("status").equals("success")){
-            //httpSession.setAttribute("login_id", response.get("login_id"));
-            MembersDto loginUser = (MembersDto) response.get("loginUser");
+            Integer loginUser = (Integer) response.get("loginUser");
+            String nickname = (String) response.get("nickname");
+
             httpSession.setAttribute("loginUser", loginUser);
+            httpSession.setAttribute("nickname", nickname);
         }
 
         System.out.println(response);
@@ -47,7 +50,8 @@ public class MemberController {
     public String logout(HttpServletRequest request){
         HttpSession session = request.getSession(false);
         if (session != null) {
-           session.invalidate();
+            session.removeAttribute("loginUser");
+            session.invalidate();
         }
         return "redirect:/home";
     }
@@ -62,7 +66,7 @@ public class MemberController {
     public Map<String, Object> join(@RequestBody JoinDto joinDto){
         System.out.println("controller - join call");
         System.out.println(joinDto.getLogin_id());
-        Map<String, Object> response = memberService.join(joinDto);
+        Map<String, Object> response = membersService.join(joinDto);
 
         System.out.println(response);
         return response;
@@ -75,13 +79,14 @@ public class MemberController {
         System.out.println(login_id);
         MembersDto membersDto = new MembersDto();
         membersDto.setLogin_id(login_id);
-        int result = memberService.idCheck(membersDto);
+        int result = membersService.idCheck(membersDto);
         return result;
     }
 
     @GetMapping("/updateForm/{id}")
     public String updateForm(@PathVariable Integer id, Model model){
-        MembersDto membersDtoUpdate = memberService.updateForm(id);
+        // 수정필요
+        MembersDto membersDtoUpdate = membersService.updateForm(id);
         model.addAttribute("loginUser", membersDtoUpdate);
         return "member/updateForm";
     }
@@ -90,7 +95,7 @@ public class MemberController {
     @ResponseBody
     public Map<String, Object> update(@PathVariable Integer id, @RequestBody UpdateDto updateDto){
         System.out.println("controller - update call");
-        Map<String, Object> response = memberService.update(id, updateDto);
+        Map<String, Object> response = membersService.update(id, updateDto);
 
         return response;
     }
@@ -99,7 +104,7 @@ public class MemberController {
     @ResponseBody
     public Map<String, Object> delete(@PathVariable Integer id, HttpServletRequest request){
         System.out.println("controller - delete call");
-        Map<String, Object> response = memberService.delete(id);
+        Map<String, Object> response = membersService.delete(id);
 
         HttpSession session = request.getSession(false);
 
@@ -109,5 +114,4 @@ public class MemberController {
 
         return response;
     }
-
 }

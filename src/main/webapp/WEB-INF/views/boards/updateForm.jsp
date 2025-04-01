@@ -4,7 +4,8 @@
 <div class="container">
     <div class="input-group">
         <input type="hidden" id="id" value="${boardsDtoUpdate.id}">
-        <input type="hidden" id="members_id" value="${loginUser.id}">
+        <input type="hidden" id="boardsDtoUpdate" value="${boardsDtoUpdate}">
+        <input type="hidden" id="members_id" value="${loginUser}">
         <select id="category_id" name="category_id" size="1">
             <option value="">게시판을 선택해 주세요</option>
             <option value="1" ${boardsDtoUpdate.category_id == 1 ? 'selected' : ''}>공지사항</option>
@@ -26,5 +27,15 @@
 </div>
 
 <script type="text/javascript" src="/js/Boards.js"></script>
+
+<script>
+$(document).ready(function(){
+        let boardsDtoUpdate = $("#boardsDtoUpdate").val();
+        if (boardsDtoUpdate == "") {
+            alert("잘못된 접근입니다.");
+            window.history.back();
+        }
+    });
+</script>
 
 <%@ include file="../layout/footer.jsp"%>

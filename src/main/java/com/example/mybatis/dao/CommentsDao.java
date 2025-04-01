@@ -1,8 +1,7 @@
 package com.example.mybatis.dao;
 
-import com.example.mybatis.dto.boards.BoardsDto;
-import com.example.mybatis.dto.comments.CommentsListDto;
 import com.example.mybatis.dto.comments.CommentsDto;
+import com.example.mybatis.dto.comments.CommentsListDto;
 
 import java.util.List;
 

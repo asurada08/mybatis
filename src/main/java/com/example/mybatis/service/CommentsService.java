@@ -1,8 +1,6 @@
 package com.example.mybatis.service;
 
 import com.example.mybatis.dao.CommentsDao;
-import com.example.mybatis.dto.boards.BoardsDto;
-import com.example.mybatis.dto.boards.UpdateDto;
 import com.example.mybatis.dto.comments.CommentsDto;
 import com.example.mybatis.dto.comments.CommentsListDto;
 import com.example.mybatis.dto.comments.CommentsUpdateDto;
@@ -10,9 +8,7 @@ import com.example.mybatis.dto.comments.CommentsWriteDto;
 import com.example.mybatis.dto.members.MembersDto;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +17,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Service
 public class CommentsService {
+
     private final CommentsDao commentsDao;
     private final HttpSession httpSession;
 
@@ -33,7 +30,7 @@ public class CommentsService {
         Map<String, Object> response = new HashMap<>();
 
         try{
-            MembersDto loginUser = (MembersDto) httpSession.getAttribute("loginUser");
+            Integer loginUser = (Integer) httpSession.getAttribute("loginUser");
 
             if (loginUser == null) {
                 response.put("code", 0);
@@ -41,7 +38,7 @@ public class CommentsService {
                 return response;
             }
 
-            commentsDao.insert(commentsWriteDto.toEntity(loginUser.getId()));
+            commentsDao.insert(commentsWriteDto.toEntity(loginUser));
             response.put("code", 1);
             response.put("message", "댓글 작성 성공");
 
@@ -59,7 +56,7 @@ public class CommentsService {
         Map<String, Object> response = new HashMap<>();
 
         try{
-            MembersDto loginUser = (MembersDto) httpSession.getAttribute("loginUser");
+            Integer loginUser = (Integer) httpSession.getAttribute("loginUser");
 
             if (loginUser == null) {
                 response.put("code", 0);
@@ -67,7 +64,7 @@ public class CommentsService {
                 return response;
             }
 
-            commentsDao.insert(commentsWriteDto.toEntity(loginUser.getId()));
+            commentsDao.insert(commentsWriteDto.toEntity(loginUser));
             response.put("code", 1);
             response.put("message", "답글 작성 성공");
 
@@ -88,7 +85,7 @@ public class CommentsService {
             System.out.println("Received content: " + commentsUpdateDto.getContent());
             System.out.println("Received updated_at: " + commentsUpdateDto.getUpdated_at());
 
-            MembersDto membersDto = (MembersDto) httpSession.getAttribute("loginUser");
+            Integer loginUser = (Integer) httpSession.getAttribute("loginUser");
             CommentsDto commentsDtoUpdate = commentsDao.findById(id);
 
             if (commentsDtoUpdate == null) {
@@ -120,6 +117,7 @@ public class CommentsService {
         Map<String, Object> response = new HashMap<>();
 
         try {
+            Integer loginUser = (Integer) httpSession.getAttribute("loginUser");
             CommentsDto commentsDtoDel = commentsDao.findById(id);
 
             if (commentsDtoDel == null) {
@@ -140,5 +138,4 @@ public class CommentsService {
 
         return response;
     }
-
 }
