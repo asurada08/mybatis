@@ -12,11 +12,7 @@
         select * from members where id = #{id} and id = #{loginUser} and del_yn = "N"
     </select>
 
-    <select id="login" resultType="Integer">
-        select id from members where login_id = #{login_id} and password = #{password} and del_yn = 'N'
-    </select>
-
-    <select id="login2" resultType="com.example.mybatis.dto.response.members.LoginRespDto">
+    <select id="login" resultType="com.example.mybatis.dto.response.members.LoginRespDto">
         select id, nickname from members where login_id = #{login_id} and password = #{password} and del_yn = 'N'
     </select>
 

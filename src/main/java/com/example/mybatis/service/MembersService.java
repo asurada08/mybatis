@@ -26,7 +26,7 @@ public class MembersService {
     public Map<String, Object> login(LoginDto loginDto) {
         Map<String, Object> response = new HashMap<>();
         try {
-            LoginRespDto loginUser = membersDao.login2(loginDto);
+            LoginRespDto loginUser = membersDao.login(loginDto);
 
             if (loginUser == null) {
                 response.put("status", "fail");

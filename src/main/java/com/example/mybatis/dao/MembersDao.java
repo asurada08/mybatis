@@ -8,8 +8,7 @@ import java.util.Map;
 
 public interface MembersDao {
     public int insert(MembersDto membersDto);
-    public Integer login(String login_id, String password);
-    LoginRespDto login2(LoginDto loginDto);
+    public LoginRespDto login(LoginDto loginDto);
     public int idCheck(MembersDto membersDto);
     public MembersDto findById(Integer id);
     public MembersDto findByIdAndCheck(Map<String, Object> params);
