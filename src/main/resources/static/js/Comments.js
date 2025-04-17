@@ -1,21 +1,24 @@
 $('#commentBtn').click(function() {
     let content = $('#content').val();
+
+    console.log("content :: " + content);
+    console.log("content :: " + content);
     let boards_id = $("#boards_id").val();
     let members_id = $("#members_id").val();
+    let params = {
+                  boards_id: boards_id,
+                  members_id: members_id,
+                  content: content,
+                  reparent: 0
+                }
 
+    console.log("params :: ",params);
     $.ajax({
         url: '/boards/writeComment',
         type: 'POST',
-        data: JSON.stringify({
-            boards_id: boards_id,
-            members_id: members_id,
-            content: content,
-            reparent: 0
-        }),
+        data: JSON.stringify(params),
         dataType:"json",
-        headers: {
-                    "Content-Type": "application/json; charset=utf-8"
-        },
+        contentType: 'application/json; charset=utf-8',
         success: function(response) {
             let id = $("#boards_id").val();
             window.location.href = '/boards/detail/' + id;
@@ -62,9 +65,7 @@ $(document).on('click', '.replyWriteBtn', function() {
                 members_id: members_id
             }),
             dataType:"json",
-            headers: {
-                        "Content-Type": "application/json; charset=utf-8"
-            },
+            contentType: 'application/json; charset=utf-8',
             success: function(response) {
                 let id = $("#boards_id").val();
                 window.location.href = '/boards/detail/' + id;

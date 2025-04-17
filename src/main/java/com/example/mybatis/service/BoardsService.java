@@ -18,11 +18,9 @@ public class BoardsService {
     private final HttpSession httpSession;
 
     public Map<String, Object> write(WriteDto writeDto){
-        System.out.println("service - write call");
         Map<String, Object> response = new HashMap<>();
 
         try {
-            //dto 잡아먹는거 다시 확인
             Integer loginUser = (Integer) httpSession.getAttribute("loginUser");
 
             if (loginUser == null) {
@@ -46,35 +44,17 @@ public class BoardsService {
 
     public PagingDto boardsList(int page, String keyword, String searchType, Integer categoryId) {
         try {
-            //없는거 검색 했을때 처리
             int pageSize = 10;
-
             List<MainListDto> posts;
 
-            System.out.println("-----1");
             int totalItems = boardsDao.getTotalItemCount(keyword, searchType, categoryId);
-            System.out.println("-----2");
-
-            System.out.println(totalItems);
-
-            System.out.println("-----3");
             PagingDto pagingDto = new PagingDto(page, pageSize, totalItems, searchType, keyword);
-            System.out.println("-----4");
-
             pagingDto.PagingCal();
-            System.out.println("-----5");
-
-            System.out.println(pagingDto.getStartNum());
-            System.out.println(pageSize);
 
             posts = boardsDao.getPagedPosts(pagingDto.getStartNum(), pageSize, keyword, searchType, categoryId);
-            System.out.println("-----6");
-
             pagingDto.setMainListDtos(posts);
-            System.out.println("-----7");
 
             return pagingDto;
-
         } catch (Exception e){
             e.printStackTrace();
             return null;
@@ -111,7 +91,6 @@ public class BoardsService {
     }
 
     public Map<String, Object> update(Integer id, UpdateDto updateDto) {
-        System.out.println("B service - update call");
         Map<String, Object> response = new HashMap<>();
 
         try {
@@ -143,11 +122,7 @@ public class BoardsService {
         return response;
     }
 
-    //BoardsDto boardsDtoDel = boardsDao.findByIdAndMembersId(id, membersDto.getId());
-    //수정 참고
-
     public Map<String, Object> delete(Integer id) {
-        System.out.println("B service - delete call");
         Map<String, Object> response = new HashMap<>();
 
         try {

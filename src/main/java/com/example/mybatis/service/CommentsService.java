@@ -26,7 +26,6 @@ public class CommentsService {
     }
 
     public Map<String, Object> writeComments(CommentsWriteDto commentsWriteDto){
-        System.out.println("service - writeComments call");
         Map<String, Object> response = new HashMap<>();
 
         try{
@@ -52,7 +51,6 @@ public class CommentsService {
     }
 
     public Map<String, Object> writeReply(CommentsWriteDto commentsWriteDto){
-        System.out.println("service - writeReply call");
         Map<String, Object> response = new HashMap<>();
 
         try{
@@ -78,25 +76,17 @@ public class CommentsService {
     }
 
     public Map<String, Object> updateComments(Integer id, CommentsUpdateDto commentsUpdateDto) {
-        System.out.println("service - updateComments call");
         Map<String, Object> response = new HashMap<>();
 
         try {
-            System.out.println("Received content: " + commentsUpdateDto.getContent());
-            System.out.println("Received updated_at: " + commentsUpdateDto.getUpdated_at());
-
             Integer loginUser = (Integer) httpSession.getAttribute("loginUser");
             CommentsDto commentsDtoUpdate = commentsDao.findById(id);
 
             if (commentsDtoUpdate == null) {
-                System.out.println("No comment found with ID: " + id);
                 response.put("code", 0);
                 response.put("message", "본인 글 만 수정 가능");
                 return response;
             }
-
-            System.out.println("id: " + commentsDtoUpdate.getId());
-            System.out.println("content: " + commentsDtoUpdate.getContent());
 
             commentsDtoUpdate.update(commentsUpdateDto);
             commentsDao.update(commentsDtoUpdate);
@@ -113,7 +103,6 @@ public class CommentsService {
     }
 
     public Map<String, Object> deleteComments(Integer id) {
-        System.out.println("service - deleteComments call");
         Map<String, Object> response = new HashMap<>();
 
         try {

@@ -33,15 +33,14 @@ public class BoardsController {
                              @RequestParam(defaultValue = "") Integer categoryId, HttpSession httpsession, Model model) {
 
         Integer loginUser = (Integer) httpsession.getAttribute("loginUser");
-//        Integer loginUser = boardsService.getLoginUserId(); //컨트롤러에서 처리하지 않고 서비스에서 처리를 하고 컨트롤러는 가져다 쓰는방법
         if (loginUser != null) {
             model.addAttribute("loginUser", loginUser);
         }
 
         PagingDto pagingDto = boardsService.boardsList(page, keyword, searchType, categoryId);
 
-        model.addAttribute("paging", pagingDto);  // 페이징 정보
-        model.addAttribute("boardsList", pagingDto.getMainListDtos());  // 게시글 목록
+        model.addAttribute("paging", pagingDto);
+        model.addAttribute("boardsList", pagingDto.getMainListDtos());
 
         return "boards/home";
     }
@@ -86,7 +85,6 @@ public class BoardsController {
     @PostMapping("/boards/update/{id}")
     @ResponseBody
     public Map<String, Object> update(@PathVariable Integer id, @RequestBody UpdateDto updateDto){
-        System.out.println("B controller - update call id : " + id);
         Map<String, Object> response = boardsService.update(id, updateDto);
         return response;
     }
@@ -94,7 +92,6 @@ public class BoardsController {
     @PostMapping("/boards/delete/{id}")
     @ResponseBody
     public Map<String, Object> delete(@PathVariable Integer id, HttpServletRequest request) {
-        System.out.println("B controller - delete call");
         Map<String, Object> response = boardsService.delete(id);
         return response;
     }
@@ -108,7 +105,6 @@ public class BoardsController {
     @PostMapping("/boards/writeComment")
     @ResponseBody
     public Map<String, Object> writeComments(@RequestBody CommentsWriteDto commentsWriteDto) {
-        System.out.println("controller - write call");
         Map<String, Object> response = commentsService.writeComments(commentsWriteDto);
         System.out.println(commentsWriteDto);
         System.out.println(response);
@@ -118,18 +114,13 @@ public class BoardsController {
     @PostMapping("/boards/writeReply")
     @ResponseBody
     public Map<String, Object> writeReply(@RequestBody CommentsWriteDto commentsWriteDto) {
-        System.out.println("controller - write call");
         Map<String, Object> response = commentsService.writeReply(commentsWriteDto);
-        System.out.println(response);
         return response;
     }
 
     @PostMapping("/boards/updateComments/{id}")
     @ResponseBody
     public Map<String, Object> updateComments(@PathVariable Integer id, @RequestBody CommentsUpdateDto commentsUpdateDto){
-        System.out.println("controller - updateComments call");
-        System.out.println("Received ID: " + id);
-        System.out.println("Received comment content: " + commentsUpdateDto.getContent());
         Map<String, Object> response = commentsService.updateComments(id, commentsUpdateDto);
         return response;
     }
@@ -137,7 +128,6 @@ public class BoardsController {
     @PostMapping("/boards/deleteComments")
     @ResponseBody
     public Map<String, Object> deleteComments(@PathVariable Integer id, HttpServletRequest request) {
-        System.out.println("controller - deleteComments call");
         Map<String, Object> response = commentsService.deleteComments(id);
         return response;
     }

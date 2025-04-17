@@ -13,22 +13,19 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
 public class MembersService {
 
     private final MembersDao membersDao;
+    private final HttpSession httpSession;
 
 
     public Map<String, Object> login(LoginDto loginDto) {
-        System.out.println("service - login call");
         Map<String, Object> response = new HashMap<>();
         try {
-//            Integer loginUser = membersDao.login(loginDto.getLogin_id(), loginDto.getPassword());
-//            String nickname = membersDao.findNicknameById(loginUser);
-//            불필요한거 줄이자
-
             LoginRespDto loginUser = membersDao.login2(loginDto);
 
             if (loginUser == null) {
@@ -56,8 +53,6 @@ public class MembersService {
     }
 
     public Map<String, Object> join(JoinDto joinDto){
-
-        System.out.println("service - join call");
         MembersDto membersDto = joinDto.toEntity();
 
         Map<String, Object> response = new HashMap<>();
@@ -82,17 +77,23 @@ public class MembersService {
 
     public MembersDto updateForm(Integer id){
         try {
+            Integer loginUser = (Integer) httpSession.getAttribute("loginUser");
 
-            // 내꺼만 수정가능하게
-            // findById = 1 잇음 findById =2 잇슴
-            // 내가 누군지는 알빠없고 db에 있으면 보여줌
-            MembersDto membersDtoUpdate = membersDao.findById(id);
-
-            if (membersDtoUpdate == null) {
+            if (!id.equals(loginUser)) {
                 return null;
             }
 
-            return membersDtoUpdate;
+            Map<String, Object> params = new HashMap<>();
+            params.put("id", id);
+            params.put("loginUser", loginUser);
+
+            MembersDto membersDto = membersDao.findByIdAndCheck(params);
+
+            if (membersDto == null) {
+                throw new RuntimeException("본인 정보가 아니거나 탈퇴한 회원");
+            }
+
+            return membersDto;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -100,9 +101,24 @@ public class MembersService {
     }
 
     public Map<String, Object> update(Integer id, UpdateDto updateDto){
-        System.out.println("service - update call");
         Map<String, Object> response = new HashMap<>();
         try {
+            Integer loginUser = (Integer) httpSession.getAttribute("loginUser");
+
+            if (!id.equals(loginUser)) {
+                return null;
+            }
+
+            Map<String, Object> params = new HashMap<>();
+            params.put("id", id);
+            params.put("loginUser", loginUser);
+
+            MembersDto membersDto = membersDao.findByIdAndCheck(params);
+
+            if (membersDto == null) {
+                throw new RuntimeException("본인 정보가 아니거나 탈퇴한 회원");
+            }
+
             MembersDto membersDtoUpdate = membersDao.findById(id);
 
             if (membersDtoUpdate == null) {
@@ -126,6 +142,22 @@ public class MembersService {
         System.out.println("service - delete call");
         Map<String, Object> response = new HashMap<>();
         try {
+            Integer loginUser = (Integer) httpSession.getAttribute("loginUser");
+
+            if (!id.equals(loginUser)) {
+                return null;
+            }
+
+            Map<String, Object> params = new HashMap<>();
+            params.put("id", id);
+            params.put("loginUser", loginUser);
+
+            MembersDto membersDto = membersDao.findByIdAndCheck(params);
+
+            if (membersDto == null) {
+                throw new RuntimeException("본인 정보가 아니거나 탈퇴한 회원");
+            }
+
             MembersDto membersDtoDel = membersDao.findById(id);
 
             if (membersDtoDel == null) {

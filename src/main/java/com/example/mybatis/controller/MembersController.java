@@ -29,9 +29,6 @@ public class MembersController {
     @PostMapping("/login")
     @ResponseBody
     public Map<String, Object> login(@RequestBody LoginDto loginDto, HttpSession httpSession){
-        System.out.println("controller - login call");
-        System.out.println(loginDto.getLogin_id());
-
         Map<String, Object> response = membersService.login(loginDto);
 
         if (response != null && response.containsKey("status") && response.get("status").equals("success")){
@@ -64,18 +61,13 @@ public class MembersController {
     @PostMapping("/join")
     @ResponseBody
     public Map<String, Object> join(@RequestBody JoinDto joinDto){
-        System.out.println("controller - join call");
-        System.out.println(joinDto.getLogin_id());
         Map<String, Object> response = membersService.join(joinDto);
-
-        System.out.println(response);
         return response;
     }
 
     @GetMapping("/idCheck")
     @ResponseBody
     public int idCheck(@RequestParam("login_id") String login_id) throws Exception{
-        System.out.println("controller - idCheck call");
         System.out.println(login_id);
         MembersDto membersDto = new MembersDto();
         membersDto.setLogin_id(login_id);
@@ -85,16 +77,14 @@ public class MembersController {
 
     @GetMapping("/updateForm/{id}")
     public String updateForm(@PathVariable Integer id, Model model){
-        // 수정필요
         MembersDto membersDtoUpdate = membersService.updateForm(id);
-        model.addAttribute("loginUser", membersDtoUpdate);
+        model.addAttribute("updateUserData", membersDtoUpdate); //model.addAttribute 모델 키 값 loginUser를 페이지에 맞는 이름으로 수정해야함 전체 확인 필요
         return "member/updateForm";
     }
 
     @PostMapping("/update/{id}")
     @ResponseBody
     public Map<String, Object> update(@PathVariable Integer id, @RequestBody UpdateDto updateDto){
-        System.out.println("controller - update call");
         Map<String, Object> response = membersService.update(id, updateDto);
 
         return response;
@@ -103,7 +93,6 @@ public class MembersController {
     @PostMapping("/delete/{id}")
     @ResponseBody
     public Map<String, Object> delete(@PathVariable Integer id, HttpServletRequest request){
-        System.out.println("controller - delete call");
         Map<String, Object> response = membersService.delete(id);
 
         HttpSession session = request.getSession(false);

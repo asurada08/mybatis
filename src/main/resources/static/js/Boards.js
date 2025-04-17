@@ -27,9 +27,7 @@ function write(){
             type:"post",
             data:JSON.stringify(data),
             dataType:"json",
-            headers: {
-                        "Content-Type": "application/json; charset=utf-8"
-            }
+            contentType: 'application/json; charset=utf-8',
         }).done((res) => {
             console.log(res);
             if (res.code == 1) {
@@ -68,9 +66,7 @@ function update(){
             type:"post",
             data:JSON.stringify(data),
             dataType:"json",
-            headers: {
-                        "Content-Type": "application/json; charset=utf-8"
-            }
+            contentType: 'application/json; charset=utf-8',
         }).done((res) => {
             console.log(res);
             if (res.code == 1) {
