@@ -78,7 +78,7 @@ public class MembersController {
     @GetMapping("/updateForm/{id}")
     public String updateForm(@PathVariable Integer id, Model model){
         MembersDto membersDtoUpdate = membersService.updateForm(id);
-        model.addAttribute("updateUserData", membersDtoUpdate); //model.addAttribute 모델 키 값 loginUser를 페이지에 맞는 이름으로 수정해야함 전체 확인 필요
+        model.addAttribute("updateUserData", membersDtoUpdate);
         return "member/updateForm";
     }
 

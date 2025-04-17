@@ -22,7 +22,6 @@
 
     <c:forEach var="comment" items="${comments}">
         <c:if test="${comment.reparent == 0}">
-            <!-- 부모 댓글 -->
             <div class="comment">
                 <p><strong>작성자:</strong> ${comment.nickname}</p>
                 <p><strong>작성일:</strong> ${comment.created_at}</p>
@@ -33,9 +32,8 @@
                     <div><a href="javascript:void(0);" class="deleteBtn" id="deleteBtn-${comment.id}">삭제</a></div>
                 </c:if>
 
-                <div><a href="javascript:void(0);" class="replyBtn" id="${comment.id}">답글</a></div> <!-- 답글 버튼 클릭 시 폼 표시 -->
+                <div><a href="javascript:void(0);" class="replyBtn" id="${comment.id}">답글</a></div>
 
-                <!-- 답글 작성 폼 (기본적으로 숨겨짐) -->
                 <div class="reply-form-${comment.id}" style="display: none;">
                     <input type="hidden" id="reply-boards_id-${comment.id}" name="boards_id" value="${detailDto.id}">
                     <input type="hidden" id="reply-members_id-${comment.id}" name="members_id" value="${loginUser}">
@@ -44,7 +42,6 @@
                     <button class="replyWriteBtn" id="replyWriteBtn-${comment.id}">답글 작성</button>
                 </div>
 
-                <!-- 수정 폼 (기본적으로 숨김) -->
                 <div class="update-form" id="update-form-${comment.id}" style="display: none;">
                     <textarea id="update-content-${comment.id}" rows="4" cols="50">${comment.content}</textarea>
                     <button class="save-update-btn" id="save-update-btn-${comment.id}">수정 저장</button>
@@ -53,10 +50,8 @@
 
             </div>
 
-            <!-- 자식 댓글들을 반복문을 통해 출력 -->
             <c:forEach var="replyComment" items="${comments}">
                 <c:if test="${replyComment.reparent == comment.id}">
-                    <!-- 자식 댓글 -->
                     <div class="reply-comment" style="margin-left: 20px;">
                         <p><strong>작성자:</strong> ${replyComment.nickname}</p>
                         <p><strong>작성일:</strong> ${replyComment.created_at}</p>
@@ -66,7 +61,6 @@
                            <div><a href="javascript:void(0);" class="deleteBtn" id="deleteBtn-${replyComment.id}">삭제</a></div>
                         </c:if>
 
-                        <!-- 수정 폼 (기본적으로 숨김) -->
                         <div class="update-form" id="update-form-${replyComment.id}" style="display: none;">
                            <textarea id="update-content-${replyComment.id}" rows="4" cols="50">${replyComment.content}</textarea>
                            <button class="save-update-btn" id="save-update-btn-${replyComment.id}">수정 저장</button>
@@ -78,7 +72,6 @@
         </c:if>
     </c:forEach>
 
-    <!-- 댓글 작성 텍스트영역 -->
     <div class="comment-form">
         <input type="hidden" id="boards_id" name="boards_id" value="${detailDto.id}"></input>
         <input type="hidden" id="members_id" name="members_id" value="${loginUser}"></input>
