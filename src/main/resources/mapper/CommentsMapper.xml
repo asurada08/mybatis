@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mybatis.dao.CommentsDao">
     <select id="findByBoardsId" resultType="com.example.mybatis.dto.comments.CommentsListDto">
-        select c.*, m.nickname from comments c join members m on c.members_id = m.id where c.boards_id = #{boards_id} order by case when c.reparent = 0 then c.id else c.reparent end;
+        select c.*, m.nickname from comments c join members m on c.members_id = m.id where c.boards_id = #{boards_id} and c.del_yn = 'N' order by case when c.reparent = 0 then c.id else c.reparent end;
     </select>
 
     <insert id="insert" parameterType="com.example.mybatis.dto.comments.CommentsDto">
@@ -13,7 +13,7 @@
     </insert>
 
     <select id="findById" resultType="com.example.mybatis.dto.comments.CommentsDto">
-        select * from comments where id = #{id}
+        select * from comments where id = #{id} and del_yn = "N"
     </select>
 
     <update id="update">

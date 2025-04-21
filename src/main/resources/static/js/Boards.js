@@ -34,7 +34,7 @@ function write(){
                 alert("작성 완료");
                 window.location.href = "http://localhost:8080/home";
             } else {
-                alert("입력 오류");
+                alert("게시글 작성에 실패 했습니다");
             }
         });
 }
@@ -96,9 +96,7 @@ function cancel(){
         type:"post",
         data:JSON.stringify(data),
         dataType:"json",
-        headers: {
-                    "Content-Type": "application/json; charset=utf-8"
-        }
+        contentType: 'application/json; charset=utf-8',
     }).done((res) => {
         if (res.code == 1) {
             alert("수정 완료");

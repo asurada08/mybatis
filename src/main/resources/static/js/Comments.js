@@ -56,7 +56,8 @@ $(document).on('click', '.replyWriteBtn', function() {
 
     if (replyContent) {
         $.ajax({
-            url: '/boards/writeReply',
+            //url: '/boards/writeReply',
+            url: '/boards/writeComment',
             type: 'POST',
             data: JSON.stringify({
                 reparent: reparent,
@@ -118,9 +119,7 @@ document.querySelectorAll('.save-update-btn').forEach(function(button) {
                 updated_at: new Date().toISOString()
             }),
             dataType: "json",
-            headers: {
-                "Content-Type": "application/json; charset=utf-8"
-            },
+            contentType: 'application/json; charset=utf-8',
             success: function(response) {
                 if (response.code === 1) {
                     let id = $("#boards_id").val();
@@ -131,6 +130,35 @@ document.querySelectorAll('.save-update-btn').forEach(function(button) {
             },
             error: function() {
                 alert("댓글 수정 중 오류가 발생했습니다.");
+            }
+        });
+    });
+});
+
+document.querySelectorAll('.deleteBtn').forEach(function(button) {
+    button.addEventListener('click', function() {
+        let comment_id = $(this).attr('id').split('-')[1]; // comment_id 추출
+        let data = { del_yn: "Y" }; // del_yn 값을 "Y"로 설정
+
+        $.ajax({
+            url: '/boards/deleteComments/' + comment_id,  // 댓글/대댓글 삭제 요청
+            type: "POST",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function(res) {
+                if (res.code == 1) {
+                    alert("삭제 완료");
+                    // 삭제 후 새로 고침 또는 특정 부분만 갱신하는 방식
+                    window.location.reload();  // 전체 페이지 새로고침
+                    // 또는 특정 댓글 삭제 후 업데이트 할 경우:
+                    // $(this).closest('.comment').remove();  // 삭제된 댓글 DOM을 제거
+                } else {
+                    alert("삭제에 실패했습니다.");
+                }
+            },
+            error: function() {
+                alert("서버와의 연결에 실패했습니다.");
             }
         });
     });

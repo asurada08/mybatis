@@ -33,14 +33,16 @@ public class CommentsService {
 
             if (loginUser == null) {
                 response.put("code", 0);
-                response.put("message", "댓글 작성 실패");
+                response.put("message", "로그인 후 작성 가능");
                 return response;
             }
 
             commentsDao.insert(commentsWriteDto.toEntity(loginUser));
-            response.put("code", 1);
-            response.put("message", "댓글 작성 성공");
 
+            boolean isReply = commentsWriteDto.getReparent() != null && commentsWriteDto.getReparent() != 0;
+
+            response.put("code", 1);
+            response.put("message", isReply ? "답글 작성 성공" : "댓글 작성 성공");
         } catch (Exception e) {
             e.printStackTrace();
             response.put("code", 0);
@@ -50,30 +52,55 @@ public class CommentsService {
         return response;
     }
 
-    public Map<String, Object> writeReply(CommentsWriteDto commentsWriteDto){
-        Map<String, Object> response = new HashMap<>();
-
-        try{
-            Integer loginUser = (Integer) httpSession.getAttribute("loginUser");
-
-            if (loginUser == null) {
-                response.put("code", 0);
-                response.put("message", "답글 작성 실패");
-                return response;
-            }
-
-            commentsDao.insert(commentsWriteDto.toEntity(loginUser));
-            response.put("code", 1);
-            response.put("message", "답글 작성 성공");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.put("code", 0);
-            response.put("message", "답글 작성 중 오류 발생");
-        }
-
-        return response;
-    }
+//    public Map<String, Object> writeComments(CommentsWriteDto commentsWriteDto){
+//        Map<String, Object> response = new HashMap<>();
+//
+//        try{
+//            Integer loginUser = (Integer) httpSession.getAttribute("loginUser");
+//
+//            if (loginUser == null) {
+//                response.put("code", 0);
+//                response.put("message", "댓글 작성 실패");
+//                return response;
+//            }
+//
+//            commentsDao.insert(commentsWriteDto.toEntity(loginUser));
+//            response.put("code", 1);
+//            response.put("message", "댓글 작성 성공");
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            response.put("code", 0);
+//            response.put("message", "댓글 작성 중 오류 발생");
+//        }
+//
+//        return response;
+//    }
+//
+//    public Map<String, Object> writeReply(CommentsWriteDto commentsWriteDto){
+//        Map<String, Object> response = new HashMap<>();
+//
+//        try{
+//            Integer loginUser = (Integer) httpSession.getAttribute("loginUser");
+//
+//            if (loginUser == null) {
+//                response.put("code", 0);
+//                response.put("message", "답글 작성 실패");
+//                return response;
+//            }
+//
+//            commentsDao.insert(commentsWriteDto.toEntity(loginUser));
+//            response.put("code", 1);
+//            response.put("message", "답글 작성 성공");
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            response.put("code", 0);
+//            response.put("message", "답글 작성 중 오류 발생");
+//        }
+//
+//        return response;
+//    }
 
     public Map<String, Object> updateComments(Integer id, CommentsUpdateDto commentsUpdateDto) {
         Map<String, Object> response = new HashMap<>();

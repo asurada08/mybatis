@@ -106,17 +106,24 @@ public class BoardsController {
     @ResponseBody
     public Map<String, Object> writeComments(@RequestBody CommentsWriteDto commentsWriteDto) {
         Map<String, Object> response = commentsService.writeComments(commentsWriteDto);
-        System.out.println(commentsWriteDto);
-        System.out.println(response);
         return response;
     }
 
-    @PostMapping("/boards/writeReply")
-    @ResponseBody
-    public Map<String, Object> writeReply(@RequestBody CommentsWriteDto commentsWriteDto) {
-        Map<String, Object> response = commentsService.writeReply(commentsWriteDto);
-        return response;
-    }
+//    @PostMapping("/boards/writeComment")
+//    @ResponseBody
+//    public Map<String, Object> writeComments(@RequestBody CommentsWriteDto commentsWriteDto) {
+//        Map<String, Object> response = commentsService.writeComments(commentsWriteDto);
+//        System.out.println(commentsWriteDto);
+//        System.out.println(response);
+//        return response;
+//    }
+
+//    @PostMapping("/boards/writeReply")
+//    @ResponseBody
+//    public Map<String, Object> writeReply(@RequestBody CommentsWriteDto commentsWriteDto) {
+//        Map<String, Object> response = commentsService.writeReply(commentsWriteDto);
+//        return response;
+//    }
 
     @PostMapping("/boards/updateComments/{id}")
     @ResponseBody
@@ -125,7 +132,7 @@ public class BoardsController {
         return response;
     }
 
-    @PostMapping("/boards/deleteComments")
+    @PostMapping("/boards/deleteComments/{id}")
     @ResponseBody
     public Map<String, Object> deleteComments(@PathVariable Integer id, HttpServletRequest request) {
         Map<String, Object> response = commentsService.deleteComments(id);
