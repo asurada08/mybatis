@@ -128,7 +128,7 @@ textarea {
 }
 
 /* Buttons */
-button, input[type="submit"], .button-group a {
+button, input[type="submit"], input[type="button"], .button-group a {
     padding: 8px 15px;
     background-color: #007BFF;
     color: white;
@@ -139,6 +139,7 @@ button, input[type="submit"], .button-group a {
 
 button:hover,
 input[type="submit"]:hover,
+input[type="button"]:hover,
 .button-group a:hover {
     background-color: #0056b3;
 }
@@ -281,4 +282,24 @@ input[type="submit"]:hover,
 
 .reply-comment {
     margin-left: 20px;
+}
+
+.comment-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.comment-actions a {
+    padding: 6px 12px;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.comment-actions a:hover {
+    background-color: #0056b3;
 }

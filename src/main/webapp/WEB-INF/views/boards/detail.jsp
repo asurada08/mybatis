@@ -16,7 +16,7 @@
             </div>
         </div>
         <c:if test="${loginUser == detailDto.members_id}">
-            <div class="button-group"><a href="/boards/updateForm/${detailDto.id}">수정</a></div>
+            <br><div class="button-group"><a href="/boards/updateForm/${detailDto.id}">수정</a></div>
         </c:if>
     </div>
 
@@ -26,13 +26,14 @@
                 <p><strong>작성자:</strong> ${comment.nickname}</p>
                 <p><strong>작성일:</strong> ${comment.created_at}</p>
                 <p><strong>댓글:</strong> <span class="comment-content" id="comment-content-${comment.id}">${comment.content}</span></p>
+                <div class="comment-actions">
+                    <c:if test="${loginUser == comment.members_id}">
+                        <div><a href="javascript:void(0);" class="updateBtn" id="updateBtn-${comment.id}">수정</a></div>
+                        <div><a href="javascript:void(0);" class="deleteBtn" id="deleteBtn-${comment.id}">삭제</a></div>
+                    </c:if>
 
-                <c:if test="${loginUser == comment.members_id}">
-                    <div><a href="javascript:void(0);" class="updateBtn" id="updateBtn-${comment.id}">수정</a></div>
-                    <div><a href="javascript:void(0);" class="deleteBtn" id="deleteBtn-${comment.id}">삭제</a></div>
-                </c:if>
-
-                <div><a href="javascript:void(0);" class="replyBtn" id="${comment.id}">답글</a></div>
+                    <div><a href="javascript:void(0);" class="replyBtn" id="${comment.id}">답글</a></div>
+                </div>
 
                 <div class="reply-form-${comment.id}" style="display: none;">
                     <input type="hidden" id="reply-boards_id-${comment.id}" name="boards_id" value="${detailDto.id}">
@@ -56,10 +57,12 @@
                         <p><strong>작성자:</strong> ${replyComment.nickname}</p>
                         <p><strong>작성일:</strong> ${replyComment.created_at}</p>
                         <p><strong>댓글:</strong><span class="comment-content" id="comment-content-${replyComment.id}">${replyComment.content}</span></p>
-                        <c:if test="${loginUser == replyComment.members_id}">
-                           <div><a href="javascript:void(0);" class="updateBtn" id="updateBtn-${replyComment.id}">수정</a></div>
-                           <div><a href="javascript:void(0);" class="deleteBtn" id="deleteBtn-${replyComment.id}">삭제</a></div>
-                        </c:if>
+                        <div class="comment-actions">
+                            <c:if test="${loginUser == replyComment.members_id}">
+                               <div><a href="javascript:void(0);" class="updateBtn" id="updateBtn-${replyComment.id}">수정</a></div>
+                               <div><a href="javascript:void(0);" class="deleteBtn" id="deleteBtn-${replyComment.id}">삭제</a></div>
+                            </c:if>
+                        </div>
 
                         <div class="update-form" id="update-form-${replyComment.id}" style="display: none;">
                            <textarea id="update-content-${replyComment.id}" rows="4" cols="50">${replyComment.content}</textarea>
