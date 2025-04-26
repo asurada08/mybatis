@@ -11,11 +11,6 @@ function login(){
     let login_id = $("#login_id").val();
     let password = $("#password").val();
 
-//    if (login_id == "" || password == ""){
-//        alert("아이디, 비밀번호를 확인해주세요");
-//        return false;
-//    }
-
     let data = {
         login_id : login_id,
         password : password
@@ -50,25 +45,21 @@ function join(){
 
     if(login_id == ""){
         alert("아이디를 입력해주세요");
-//        $("#login_id").focus();
         return false;
     }
 
     if(login_id.length < 2){
         alert("아이디는 2글자 이상이어야 합니다");
-//        $("#login_id").focus();
         return false;
     }
 
     if(password == ''){
         alert("비밀번호를 입력해주세요");
-//        join.password.focus();
         return false;
     }
 
     if(password != password_check){
         alert("비밀번호가 일치하지 않습니다");
-//        join.password.focus();
         return false;
     }
 
@@ -152,6 +143,11 @@ function update(){
     let password = $("#password").val();
     let password_check = $("#password_check").val();
     let nickname = $("#nickname").val();
+
+    if(password == ''){
+        alert("비밀번호를 입력해주세요");
+        return false;
+    }
 
     if(password != password_check){
         alert("비밀번호가 일치하지 않습니다");
